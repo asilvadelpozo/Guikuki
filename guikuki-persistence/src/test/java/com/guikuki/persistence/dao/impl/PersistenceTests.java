@@ -16,7 +16,7 @@ import org.junit.runners.Suite;
  * Created by antoniosilvadelpozo on 26/03/14.
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses( { PhotoDAOImplTest.class, RestaurantDAOImplTest.class })
+@Suite.SuiteClasses({PhotoDAOImplTest.class, RestaurantDAOImplTest.class})
 public class PersistenceTests {
 
     private static MongodExecutable mongodExe;
