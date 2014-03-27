@@ -65,7 +65,6 @@ public class RestaurantDAOImplTest {
 
     @Test
     public void should_return_test_restaurant() {
-        System.out.println("Test");
         Restaurant actualRestaurant = restaurantDAO.findRestaurantById("testId1");
         Restaurant expectedRestaurant = createTestRestaurant("testId1", "testName1", "testDescription1", "testFileName1");
         assertThat(actualRestaurant, equalTo(expectedRestaurant));
