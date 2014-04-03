@@ -8,6 +8,7 @@
     <modules>
         <module>guikuki-persistence</module>
         <module>guikuki-service</module>
+        <module>guikuki-web</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,0 +1,25 @@
+body {
+  	font-family: Georgia, "Times New Roman", Times, serif;
+  	font-size: small;
+  	margin: 0px;
+  	background-image: url("/static/images/background_pattern.png");
+}
+
+p {
+	font-family: Existence-Light, Georgia, "Times New Roman", Times, serif;
+	font-size: 150%;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+#content {
+    width: 1000px;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffffff;
+}

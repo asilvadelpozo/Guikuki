@@ -24,6 +24,7 @@
         <processorPath useClasspath="true" />
         <module name="guikuki-persistence" />
         <module name="guikuki-service" />
+        <module name="guikuki-web" />
       </profile>
     </annotationProcessing>
   </component>

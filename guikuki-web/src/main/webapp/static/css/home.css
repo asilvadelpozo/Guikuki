@@ -1,0 +1,86 @@
+@import url("/static/css/template/fonts.css");
+@import url("/static/css/template/common.css");
+@import url("/static/css/template/social.css");
+@import url("/static/css/template/header.css");
+@import url("/static/css/template/footer.css");
+
+section#restaurantList {
+    margin: 0px;
+    padding: 0px;
+}
+
+article.restaurant {
+    display: table;
+    margin: 30px;
+    position: relative;
+}
+
+article.restaurant:before {
+    background: url("/static/images/clip-left.png") no-repeat scroll 0 0 transparent;
+    position: absolute;
+    content: '';
+    left: -13px;
+    top: 85px;
+    z-index: 10;
+    width: 100px;
+    height: 80px;
+    display: inline-block;
+}
+
+header.headerRestaurant {
+    display: table-row;
+}
+
+header.headerRestaurant p {
+    display: table-cell;
+    font-family: Amatic-Bold, Georgia, "Times New Roman", Times, serif;
+}
+
+header.headerRestaurant p.titleRestaurant {
+    background-color: #c0b698;
+    color: #310212;
+    text-align: center;
+    font-size: 250%;
+    border-radius: 20px 20px 0px 0px;
+    padding-top: 20px;
+    font-weight: bolder;
+}
+
+section.contentRestaurant {
+    display: table-row;
+    background-color: #c0b698;
+}
+
+section.contentRestaurant img {
+    display: table-cell;
+    margin: 40px;
+    vertical-align: top;
+    border-width: 20px 20px 20px 20px;
+    border-color: #fff;
+    border-style: solid;
+    transform:rotate(-7deg);
+    -ms-transform:rotate(-7deg); /* IE 9 */
+    -webkit-transform:rotate(-7deg); /* Opera, Chrome, and Safari */
+    transition: all .2s ease-in-out;
+}
+
+section.contentRestaurant div.descriptionRestaurant {
+    display: table-cell;
+    padding: 30px;
+    vertical-align: top;
+    border-radius: 0px 20px 20px 0px;
+}
+
+section.contentRestaurant div.descriptionRestaurant p{
+    color: #310212;
+}
+
+section.contentRestaurant div.descriptionRestaurant p:first-letter{
+    font-size: 500%;
+    font-weight: bolder;
+    float:left;
+    margin: 0px 5px 0px 0px;
+    padding: 0px;
+    line-height: 0.8;
+    text-shadow: 2px 2px 0 #ebe3ca, 5px 5px 0 #310212;
+}

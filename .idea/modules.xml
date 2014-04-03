@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Guikuki.iml" filepath="$PROJECT_DIR$/Guikuki.iml" />
       <module fileurl="file://$PROJECT_DIR$/guikuki-persistence/guikuki-persistence.iml" filepath="$PROJECT_DIR$/guikuki-persistence/guikuki-persistence.iml" />
       <module fileurl="file://$PROJECT_DIR$/guikuki-service/guikuki-service.iml" filepath="$PROJECT_DIR$/guikuki-service/guikuki-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/guikuki-web/guikuki-web.iml" filepath="$PROJECT_DIR$/guikuki-web/guikuki-web.iml" />
     </modules>
   </component>
 </project>

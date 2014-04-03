@@ -3,6 +3,9 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/guikuki-web" />
+  </component>
   <component name="IdProvider" IDEtalkID="81994A353EA2D2F34E41E6C426721018" />
   <component name="MavenProjectsManager">
     <option name="originalFiles">
