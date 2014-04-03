@@ -1,4 +1,4 @@
-:i!/bin/bash
+#!/bin/sh
 
 #First we drop the database guikuki to start from scratch
 ~/Documents/mongodb/mongodb-osx-x86_64-2.4.3/bin/mongo guikuki --eval "db.dropDatabase()"
