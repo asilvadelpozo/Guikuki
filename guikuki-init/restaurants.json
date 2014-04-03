@@ -1,22 +1,32 @@
 [
-  {
-    "_id": "bar_tomate",
-    "name": "Bar Tomate",
-    "description": "Una decoración cálida y con esos toques cool que tanto gustan: buen ambiente, mesas corridas en las que sentarse junto a desconocidos, algunas piezas de mobiliario vintage y una decoración a medio camino entre lo rústico y lo industrial. El tomate en cualquiera de sus variantes es un acierto.",
-    "pictures": {
-      "main": {
-        "filename": "bar_tomate.jpg"
-      }
+    {
+        "_id": "bar_tomate",
+        "name": "Bar Tomate",
+        "description": "Una decoración cálida y con esos toques cool que tanto gustan: buen ambiente, mesas corridas en las que sentarse junto a desconocidos, algunas piezas de mobiliario vintage y una decoración a medio camino entre lo rústico y lo industrial. El tomate en cualquiera de sus variantes es un acierto.",
+        "pictures": {
+            "main": {
+                "filename": "bar_tomate.jpg"
+            }
+        }
+    },
+    {
+        "_id": "munoca",
+        "name": "Muñoca",
+        "description": "Tras la experiencia T.a.r.t.a.n. el chef Javier Muñoz-Calero apuesta por una neotasca en la que ofrece una visión renovada y muy personal de las recetas para picar “de toda la vida”.",
+        "pictures": {
+            "main": {
+                "filename": "munoca.jpg"
+            }
+        }
+    },
+    {
+        "_id": "morao",
+        "name": "Morao",
+        "description": "En un ambiente marcado por un diseño moderno y por una exquisita iluminación, he aquí una grata opción en materia de pinchos, tapas, cazuelitas, hamburguesas, ensaladas y postres en pleno barrio de Salamanca.",
+        "pictures": {
+            "main": {
+                "filename": "morao.jpg"
+            }
+        }
     }
-  },
-  {
-    "_id": "munoca",
-    "name": "Muñoca",
-    "description": "Tras la experiencia T.a.r.t.a.n. el chef Javier Muñoz-Calero apuesta por una neotasca en la que ofrece una visión renovada y muy personal de las recetas para picar “de toda la vida”.",
-    "pictures": {
-      "main": {
-        "filename": "munoca.jpg"
-      }
-    }
-  }
 ]
