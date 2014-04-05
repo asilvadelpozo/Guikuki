@@ -1,6 +1,7 @@
 package com.guikuki.persistence.dao.impl;
 
 import com.guikuki.persistence.dao.PhotoDAO;
+import com.guikuki.persistence.exception.PhotoNotFoundException;
 import com.guikuki.persistence.model.Photo;
 import com.mongodb.gridfs.GridFSDBFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by antoniosilvadelpozo on 24/03/14.
+ * {@inheritDoc}
  */
 @Repository
 public class PhotoDAOImpl implements PhotoDAO {
@@ -26,14 +27,18 @@ public class PhotoDAOImpl implements PhotoDAO {
 
     /**
      * {@inheritDoc}
-     *
      */
     @Override
-    public Photo findPhotoByFileName(String fileName) {
+    public Photo findPhotoByFileName(String fileName) throws PhotoNotFoundException {
 
         Photo photo = null;
 
         List<GridFSDBFile> gridFSDBFileList = gridFsOperations.find(new Query().addCriteria(Criteria.where("filename").is(fileName)));
+
+        if(gridFSDBFileList == null || gridFSDBFileList.isEmpty()) {
+            throw new PhotoNotFoundException("Photo with fileName: " + fileName + " not found.");
+        }
+
         ByteArrayOutputStream byteArrayOutputStream = null;
         for (GridFSDBFile gridFSDBFile : gridFSDBFileList) {
             try {

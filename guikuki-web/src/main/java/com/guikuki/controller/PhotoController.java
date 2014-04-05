@@ -1,5 +1,6 @@
 package com.guikuki.controller;
 
+import com.guikuki.persistence.exception.PhotoNotFoundException;
 import com.guikuki.persistence.model.Photo;
 import com.guikuki.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class PhotoController {
     private PhotoService photoService;
 
     @RequestMapping(value = "/{filename}/content", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public @ResponseBody byte[] findPhotoContentByFileName(@PathVariable String filename) {
+    public @ResponseBody byte[] findPhotoContentByFileName(@PathVariable String filename) throws PhotoNotFoundException {
         Photo photo = photoService.findPhotoByFileName(filename + JPEG_EXTENSION);
         return photo.getContent();
     }

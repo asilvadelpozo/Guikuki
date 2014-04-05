@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import com.guikuki.persistence.dao.RestaurantDAO;
+import com.guikuki.persistence.exception.RestaurantNotFoundException;
 import com.guikuki.persistence.model.Picture;
 import com.guikuki.persistence.model.Pictures;
 import com.guikuki.persistence.model.Restaurant;
@@ -17,11 +18,8 @@ import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
 import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -45,6 +43,9 @@ public class RestaurantDAOImplTest {
     @Autowired
     private RestaurantDAO restaurantDAO;
 
+    @Rule
+    public ExpectedException restaurantNotFoundException = ExpectedException.none();
+
 	/**
 	 * @throws Exception
 	 */
@@ -64,7 +65,7 @@ public class RestaurantDAOImplTest {
 	}
 
     @Test
-    public void should_return_test_restaurant() {
+    public void should_return_test_restaurant() throws RestaurantNotFoundException{
         Restaurant actualRestaurant = restaurantDAO.findRestaurantById("testId1");
         Restaurant expectedRestaurant = createTestRestaurant("testId1", "testName1", "testDescription1", "testFileName1");
         assertThat(actualRestaurant, equalTo(expectedRestaurant));
@@ -78,10 +79,13 @@ public class RestaurantDAOImplTest {
 	}
 
     @Test
-    public void should_return_null_if_irestaurant_id_does_not_exists() throws Exception {
+    public void should_throw_not_found_exception_if_restaurant_id_does_not_exists() throws RestaurantNotFoundException {
         String nonExistentRestaurantId = "nonExistentRestaurantId";
-        Restaurant nonExistentRestaurant = restaurantDAO.findRestaurantById(nonExistentRestaurantId);
-        assertNull(nonExistentRestaurant);
+
+        restaurantNotFoundException.expect(RestaurantNotFoundException.class);
+        restaurantNotFoundException.expectMessage("Restaurant with id: " + nonExistentRestaurantId + " not found.");
+
+        restaurantDAO.findRestaurantById(nonExistentRestaurantId);
     }
 
     /**

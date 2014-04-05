@@ -1,5 +1,6 @@
 package com.guikuki.service;
 
+import com.guikuki.persistence.exception.PhotoNotFoundException;
 import com.guikuki.persistence.model.Photo;
 
 /**
@@ -12,7 +13,8 @@ public interface PhotoService {
      * Return a specific Photo given its file name.
      * @param fileName: name of the Photo.
      * @return Photo
+     * @throws PhotoNotFoundException
      */
-    public abstract Photo findPhotoByFileName(String fileName);
+    public abstract Photo findPhotoByFileName(String fileName) throws PhotoNotFoundException;
 
 }

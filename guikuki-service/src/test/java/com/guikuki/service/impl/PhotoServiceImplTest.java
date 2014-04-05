@@ -1,12 +1,15 @@
 package com.guikuki.service.impl;
 
 import com.guikuki.persistence.dao.PhotoDAO;
+import com.guikuki.persistence.exception.PhotoNotFoundException;
 import com.guikuki.persistence.model.Photo;
 import com.guikuki.service.PhotoService;
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -36,6 +39,9 @@ public class PhotoServiceImplTest {
     @Autowired
     private PhotoService photoService;
 
+    @Rule
+    public ExpectedException photoNotFoundException = ExpectedException.none();
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
@@ -59,12 +65,14 @@ public class PhotoServiceImplTest {
     }
 
     @Test
-    public void should_return_null_if_file_name_does_not_exists() throws Exception {
+    public void should_throw_not_found_exception_if_file_name_does_not_exists() throws PhotoNotFoundException {
         String nonExistentFileName = "nonExistentFileName";
-        when(photoDAO.findPhotoByFileName(nonExistentFileName)).thenReturn(null);
+        when(photoDAO.findPhotoByFileName(nonExistentFileName)).thenThrow(new PhotoNotFoundException("Photo with fileName: " + nonExistentFileName + " not found."));
 
-        Photo nonExistentPhoto = photoService.findPhotoByFileName(nonExistentFileName);
-        assertNull(nonExistentPhoto);
+        photoNotFoundException.expect(PhotoNotFoundException.class);
+        photoNotFoundException.expectMessage("Photo with fileName: " + nonExistentFileName + " not found.");
+
+        photoService.findPhotoByFileName(nonExistentFileName);
     }
 
     /**

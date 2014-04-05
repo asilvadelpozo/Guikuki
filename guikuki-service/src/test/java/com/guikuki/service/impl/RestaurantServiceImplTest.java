@@ -1,13 +1,16 @@
 package com.guikuki.service.impl;
 
 import com.guikuki.persistence.dao.RestaurantDAO;
+import com.guikuki.persistence.exception.RestaurantNotFoundException;
 import com.guikuki.persistence.model.Picture;
 import com.guikuki.persistence.model.Pictures;
 import com.guikuki.persistence.model.Restaurant;
 import com.guikuki.service.RestaurantService;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -37,6 +40,9 @@ public class RestaurantServiceImplTest {
     @InjectMocks
     @Autowired
     private RestaurantService restaurantService;
+
+    @Rule
+    public ExpectedException restaurantNotFoundException = ExpectedException.none();
 
     @Before
     public void setUp() throws Exception {
@@ -71,13 +77,14 @@ public class RestaurantServiceImplTest {
     }
 
     @Test
-    public void should_return_null_if_irestaurant_id_does_not_exists() throws Exception {
+    public void should_throw_not_found_exception_if_irestaurant_id_does_not_exists() throws RestaurantNotFoundException {
         String nonExistentRestaurantId = "nonExistentRestaurantId";
+        when(restaurantDAO.findRestaurantById(nonExistentRestaurantId)).thenThrow(new RestaurantNotFoundException("Restaurant with id: " + nonExistentRestaurantId + " not found."));
 
-        when(restaurantDAO.findRestaurantById(nonExistentRestaurantId)).thenReturn(null);
+        restaurantNotFoundException.expect(RestaurantNotFoundException.class);
+        restaurantNotFoundException.expectMessage("Restaurant with id: " + nonExistentRestaurantId + " not found.");
 
-        Restaurant nonExistentRestaurant = restaurantService.findRestaurantById(nonExistentRestaurantId);
-        assertNull(nonExistentRestaurant);
+        restaurantService.findRestaurantById(nonExistentRestaurantId);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.guikuki.service;
 
+import com.guikuki.persistence.exception.RestaurantNotFoundException;
 import com.guikuki.persistence.model.Restaurant;
 
 import java.util.List;
@@ -20,7 +21,8 @@ public interface RestaurantService {
      * Returns an specific restaurant given its id.
      * @param id: id of the restaurant.
      * @return Restaurant
+     * @throws RestaurantNotFoundException
      */
-    public Restaurant findRestaurantById(String id);
+    public Restaurant findRestaurantById(String id) throws RestaurantNotFoundException;
 
 }
