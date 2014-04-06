@@ -10,7 +10,7 @@
     <nav>
         <ul>
             <li><a href="home">INICIO</a></li>
-            <li><a href="blog.html">RESTAURANTES</a></li>
+            <li><a href="restaurants">RESTAURANTES</a></li>
             <li><a href="">RANKINGS</a></li>
             <li><a href="">CONTACTO</a></li>
         </ul>
