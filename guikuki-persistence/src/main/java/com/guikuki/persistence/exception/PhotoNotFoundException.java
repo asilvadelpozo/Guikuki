@@ -4,7 +4,7 @@ package com.guikuki.persistence.exception;
  * Exception throw if Photo not found.
  * Created by antoniosilvadelpozo on 05/04/14.
  */
-public class PhotoNotFoundException extends Exception {
+public class PhotoNotFoundException extends ResourceNotFoundException {
 
     /**
      * Public constructor.

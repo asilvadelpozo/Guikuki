@@ -4,7 +4,7 @@ package com.guikuki.persistence.exception;
  * Exception throw if Restaurant not found.
  * Created by antoniosilvadelpozo on 05/04/14.
  */
-public class RestaurantNotFoundException extends Exception {
+public class RestaurantNotFoundException extends ResourceNotFoundException {
 
     /**
      * Public constructor.
