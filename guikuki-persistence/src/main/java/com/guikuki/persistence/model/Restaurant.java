@@ -6,19 +6,27 @@ package com.guikuki.persistence.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 /**
- * Model objecto to represent Restaurants from the mongodb collection restaurants
+ * Model object to represent Restaurants from the mongodb collection restaurants
  * @author antoniosilvadelpozo
  *
  */
 @Document(collection = "restaurants")
+@XmlRootElement(name = "restaurant")
+@XmlType(propOrder = {"id", "name", "description", "pictures"})
 public class Restaurant {
 	
 	@Id
 	private String id;
-	private String name;
+    private String name;
 	private String description;
 	private Pictures pictures;
+
+    public Restaurant(){}
 
     public Restaurant(String id, String name, String description, Pictures pictures) {
         this.id = id;
@@ -30,7 +38,8 @@ public class Restaurant {
     public String getId() {
 		return id;
 	}
-	
+
+    @XmlElement(name = "id")
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -38,7 +47,8 @@ public class Restaurant {
 	public String getName() {
 		return name;
 	}
-	
+
+    @XmlElement(name = "name")
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -46,7 +56,8 @@ public class Restaurant {
 	public String getDescription() {
 		return description;
 	}
-	
+
+    @XmlElement(name = "description")
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -55,6 +66,7 @@ public class Restaurant {
 		return pictures;
 	}
 
+    @XmlElement(name = "pictures")
 	public void setPictures(Pictures pictures) {
 		this.pictures = pictures;
 	}

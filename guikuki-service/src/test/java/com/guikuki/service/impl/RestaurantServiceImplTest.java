@@ -5,6 +5,7 @@ import com.guikuki.persistence.exception.RestaurantNotFoundException;
 import com.guikuki.persistence.model.Picture;
 import com.guikuki.persistence.model.Pictures;
 import com.guikuki.persistence.model.Restaurant;
+import com.guikuki.persistence.model.Restaurants;
 import com.guikuki.service.RestaurantService;
 import org.junit.After;
 import org.junit.Before;
@@ -30,7 +31,7 @@ import static org.mockito.Mockito.when;
 /**
  * Created by antoniosilvadelpozo on 26/03/14.
  */
-@ContextConfiguration(locations = {"classpath:/service-context-test.xml", "classpath:persistence-context-test.xml"})
+@ContextConfiguration(locations = {"classpath:service-context-test.xml", "classpath:persistence-context-test.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RestaurantServiceImplTest {
 
@@ -67,11 +68,13 @@ public class RestaurantServiceImplTest {
 
     @Test
     public void should_return_all_restaurants() throws Exception {
-        List<Restaurant> mockRestaurantList = createTestRestaurants();
+        Restaurants mockRestaurantList = createTestRestaurants();
         when(restaurantDAO.findAllRestaurants()).thenReturn(mockRestaurantList);
 
-        List<Restaurant> actualRestaurantList = restaurantService.findAllRestaurants();
-        List<Restaurant> expectedRestaurantList = createTestRestaurants();
+        Restaurants actualRestaurants = restaurantService.findAllRestaurants();
+        List<Restaurant> actualRestaurantList = actualRestaurants.getRestaurantList();
+        Restaurants expectedRestaurants = createTestRestaurants();
+        List<Restaurant> expectedRestaurantList = expectedRestaurants.getRestaurantList();
 
         assertThat(actualRestaurantList, containsInAnyOrder(expectedRestaurantList.toArray(new Restaurant[expectedRestaurantList.size()])));
     }
@@ -101,10 +104,11 @@ public class RestaurantServiceImplTest {
      * Creates a List of Restaurants instances for testing.
      * @return List<Restaurant>
      */
-    private List<Restaurant> createTestRestaurants() {
-        List<Restaurant> testRestaurants = new ArrayList<Restaurant>();
-        testRestaurants.add(createTestRestaurant("testId1", "testName1", "testDescription1", "testFileName1"));
-        testRestaurants.add(createTestRestaurant("testId2", "testName2", "testDescription2", "testFileName2"));
+    private Restaurants createTestRestaurants() {
+        List<Restaurant> testRestaurantsList = new ArrayList<Restaurant>();
+        testRestaurantsList.add(createTestRestaurant("testId1", "testName1", "testDescription1", "testFileName1"));
+        testRestaurantsList.add(createTestRestaurant("testId2", "testName2", "testDescription2", "testFileName2"));
+        Restaurants testRestaurants = new Restaurants(testRestaurantsList);
         return testRestaurants;
     }
 }

@@ -3,11 +3,10 @@ package com.guikuki.service.impl;
 import com.guikuki.persistence.dao.RestaurantDAO;
 import com.guikuki.persistence.exception.RestaurantNotFoundException;
 import com.guikuki.persistence.model.Restaurant;
+import com.guikuki.persistence.model.Restaurants;
 import com.guikuki.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * {@inheritDoc}
@@ -24,7 +23,7 @@ public class RestaurantServiceImpl implements RestaurantService {
      *
      */
     @Override
-    public List<Restaurant> findAllRestaurants() {
+    public Restaurants findAllRestaurants() {
         return restaurantDAO.findAllRestaurants();
     }
 

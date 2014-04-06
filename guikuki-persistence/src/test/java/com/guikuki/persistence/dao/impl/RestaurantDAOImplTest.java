@@ -11,6 +11,7 @@ import com.guikuki.persistence.exception.RestaurantNotFoundException;
 import com.guikuki.persistence.model.Picture;
 import com.guikuki.persistence.model.Pictures;
 import com.guikuki.persistence.model.Restaurant;
+import com.guikuki.persistence.model.Restaurants;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.MongodStarter;
@@ -73,7 +74,8 @@ public class RestaurantDAOImplTest {
 
 	@Test
 	public void should_return_all_restaurants() {
-        List<Restaurant> actualRestaurantList = restaurantDAO.findAllRestaurants();
+        Restaurants actualRestaurants = restaurantDAO.findAllRestaurants();
+        List<Restaurant> actualRestaurantList = actualRestaurants.getRestaurantList();
         List<Restaurant> expectedRestaurantList = createTestRestaurants();
         assertThat(actualRestaurantList, containsInAnyOrder(expectedRestaurantList.toArray(new Restaurant[expectedRestaurantList.size()])));
 	}

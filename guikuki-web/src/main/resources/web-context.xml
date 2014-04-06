@@ -9,20 +9,66 @@
             http://www.springframework.org/schema/mvc/spring-mvc.xsd
             http://www.springframework.org/schema/context
             http://www.springframework.org/schema/context/spring-context.xsd">
-    
-    <mvc:resources mapping="/static/**" location="/static/" />
-    <mvc:annotation-driven />
 
+    <!-- Static Resources Mapping -->
+    <mvc:resources mapping="/static/**" location="/static/" />
+
+    <!-- Wiring Declarations -->
+    <mvc:annotation-driven />
     <context:component-scan base-package="com.guikuki" />
 
-    <bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
+    <!-- View Resolving -->
 
+    <!-- Tiles Configuration for Resolving HTML views -->
     <bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" >
         <property name="definitions">
-        <list>
-            <value>/WEB-INF/tiles/tiles-definition.xml</value>
-        </list>
-    </property>
+            <list>
+                <value>/WEB-INF/tiles/tiles-definition.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- JaxbMarshaller Configuration for resolving XML views -->
+    <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="classesToBeBound">
+            <list>
+                <value>com.guikuki.persistence.model.Restaurants</value>
+                <value>com.guikuki.persistence.model.Restaurant</value>
+                <value>com.guikuki.persistence.model.Pictures</value>
+                <value>com.guikuki.persistence.model.Picture</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--  Content Negotiation Manager configurer -->
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="favorPathExtension" value="true"/>
+        <property name="ignoreAcceptHeader" value="true" />
+        <property name="defaultContentType" value="text/html" />
+        <property name="useJaf" value="false"/>
+        <property name="mediaTypes">
+            <map>
+                <entry key="html" value="text/html" />
+                <entry key="json" value="application/json" />
+                <entry key="xml" value="application/xml" />
+            </map>
+        </property>
+    </bean>
+
+    <!-- Declarations of different view resolvers (HTML, JSON, XML) -->
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="contentNegotiationManager" ref="contentNegotiationManager" />
+        <property name="viewResolvers">
+            <list>
+                <bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+                    <property name="contentType" value="text/html" />
+                </bean>
+                <bean class="com.guikuki.viewresolvers.JsonViewResolver" />
+                <bean class="com.guikuki.viewresolvers.XmlViewResolver">
+                    <property name="jaxb2Marshaller" ref="jaxb2Marshaller" />
+                </bean>
+            </list>
+        </property>
     </bean>
 
 </beans>

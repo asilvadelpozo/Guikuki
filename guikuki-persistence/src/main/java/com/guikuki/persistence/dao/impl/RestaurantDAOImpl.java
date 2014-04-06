@@ -8,6 +8,7 @@ import java.util.List;
 import com.guikuki.persistence.dao.RestaurantDAO;
 import com.guikuki.persistence.exception.RestaurantNotFoundException;
 import com.guikuki.persistence.model.Restaurant;
+import com.guikuki.persistence.model.Restaurants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -27,8 +28,9 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<Restaurant> findAllRestaurants() {
-        List<Restaurant> restaurants = mongoOperations.findAll(Restaurant.class);
+	public Restaurants findAllRestaurants() {
+        List<Restaurant> restaurantsList = mongoOperations.findAll(Restaurant.class);
+        Restaurants restaurants = new Restaurants(restaurantsList);
         return restaurants;
 	}
 

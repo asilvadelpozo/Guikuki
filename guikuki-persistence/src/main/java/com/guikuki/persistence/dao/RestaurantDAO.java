@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.guikuki.persistence.exception.RestaurantNotFoundException;
 import com.guikuki.persistence.model.Restaurant;
+import com.guikuki.persistence.model.Restaurants;
 
 /**
  * DAO for Restaurants
@@ -16,9 +17,9 @@ import com.guikuki.persistence.model.Restaurant;
 public interface RestaurantDAO {
 	/**
 	 * Return all restaurants.
-	 * @return ArrayList of restaurants.
+	 * @return Restaurants: List of restaurants.
 	 */
-	public List<Restaurant> findAllRestaurants();
+	public Restaurants findAllRestaurants();
 	
 	/**
 	 * Returns an specific restaurant given its id.

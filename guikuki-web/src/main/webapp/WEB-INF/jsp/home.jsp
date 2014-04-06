@@ -10,7 +10,7 @@
 
 <section id="restaurantList">
     <ul>
-        <c:forEach items="${restaurantList}" var="restaurant">
+        <c:forEach items="${restaurants.restaurantList}" var="restaurant">
             <li>
                 <article class="restaurant">
                     <header class="headerRestaurant">

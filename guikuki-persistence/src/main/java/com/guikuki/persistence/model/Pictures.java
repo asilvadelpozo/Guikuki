@@ -3,14 +3,21 @@
  */
 package com.guikuki.persistence.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 /**
- * Model objecto to represent Restaurants from the mongodb collection all the pictures of a restaurant
+ * Model object to represent Restaurants from the mongodb collection all the pictures of a restaurant
  * @author antoniosilvadelpozo
  *
  */
+@XmlRootElement(name = "pictures")
 public class Pictures {
 
 	private Picture main;
+
+    public Pictures() {}
 
     public Pictures(Picture main) {
         this.main = main;
@@ -20,6 +27,7 @@ public class Pictures {
 		return main;
 	}
 
+    @XmlElement(name = "main")
 	public void setMain(Picture main) {
 		this.main = main;
 	}

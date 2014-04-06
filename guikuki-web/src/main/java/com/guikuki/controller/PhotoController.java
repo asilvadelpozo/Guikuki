@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ * Controller for Photo resources.
  * Created by antoniosilvadelpozo on 01/04/14.
  */
 @Controller
