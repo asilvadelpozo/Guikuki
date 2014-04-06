@@ -63,8 +63,8 @@
                 <bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
                     <property name="contentType" value="text/html" />
                 </bean>
-                <bean class="com.guikuki.viewresolvers.JsonViewResolver" />
-                <bean class="com.guikuki.viewresolvers.XmlViewResolver">
+                <bean class="com.guikuki.viewresolver.JsonViewResolver" />
+                <bean class="com.guikuki.viewresolver.XmlViewResolver">
                     <property name="jaxb2Marshaller" ref="jaxb2Marshaller" />
                 </bean>
             </list>
