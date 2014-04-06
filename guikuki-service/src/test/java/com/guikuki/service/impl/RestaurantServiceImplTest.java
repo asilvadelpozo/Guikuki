@@ -52,7 +52,6 @@ public class RestaurantServiceImplTest {
 
     @After
     public void tearDown() throws Exception {
-
     }
 
     @Test
