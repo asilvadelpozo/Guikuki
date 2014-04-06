@@ -1,4 +1,4 @@
-package com.guikuki.viewresolvers;
+package com.guikuki.viewresolver;
 
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;

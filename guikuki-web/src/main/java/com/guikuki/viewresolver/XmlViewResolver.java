@@ -1,4 +1,4 @@
-package com.guikuki.viewresolvers;
+package com.guikuki.viewresolver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
