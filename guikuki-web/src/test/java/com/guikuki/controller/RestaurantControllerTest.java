@@ -27,8 +27,8 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -189,7 +189,7 @@ public class RestaurantControllerTest {
     }
 
     @Test
-    public void find_restaurant_by_id_should_return_404_if_restaurant_id_non_existent() throws Exception {
+    public void find_restaurant_by_id_should_return_404_if_restaurant_id_not_exists() throws Exception {
         String nonExistentRestaurantId = "nonExistentRestaurantId";
         when(restaurantService.findRestaurantById(nonExistentRestaurantId)).thenThrow(new RestaurantNotFoundException("Restaurant with id: " + nonExistentRestaurantId + " not found."));
 
