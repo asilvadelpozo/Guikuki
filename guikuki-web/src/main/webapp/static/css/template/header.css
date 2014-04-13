@@ -8,13 +8,13 @@ header#header {
 header#header {
     font-size: 800%;
     height: 110px;
-    padding: 50px 0px 50px 240px;
+    padding: 50px 0px 55px 240px;
     font-weight: bolder;
 }
 
 header#header nav {
-    font-size: 20%;
-    padding-left: 496px;
+    font-size: 25%;
+    padding-left: 530px;
 }
 
 header#header nav ul li {
