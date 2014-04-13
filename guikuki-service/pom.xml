@@ -87,7 +87,7 @@
                 <version>2.12.4</version>
                 <configuration>
                     <includes>
-                        <include>ServiceTestTests.java</include>
+                        <include>ServiceTests.java</include>
                     </includes>
                 </configuration>
             </plugin>
