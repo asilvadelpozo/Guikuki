@@ -1,22 +1,24 @@
 package com.guikuki.controller;
 
 import com.guikuki.persistence.exception.PhotoNotFoundException;
-import com.guikuki.persistence.exception.RestaurantNotFoundException;
 import com.guikuki.persistence.model.Photo;
 import com.guikuki.service.PhotoService;
+import com.guikuki.util.UtilTests;
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.aop.framework.Advised;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -24,10 +26,10 @@ import org.springframework.web.context.WebApplicationContext;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Created by antoniosilvadelpozo on 10/04/14.
@@ -40,7 +42,6 @@ public class PhotoControllerTest {
     @Mock
     private PhotoService photoService;
 
-    @InjectMocks
     @Autowired
     private PhotoController photoController;
 
@@ -52,6 +53,8 @@ public class PhotoControllerTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+        PhotoController unwrappedPhotoController = (PhotoController) UtilTests.unwrapProxy(photoController);
+        ReflectionTestUtils.setField(unwrappedPhotoController, "photoService", photoService);
         photoControllerMockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 

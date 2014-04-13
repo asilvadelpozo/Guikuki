@@ -1,33 +1,27 @@
 package com.guikuki.controller;
 
-import com.guikuki.persistence.model.Restaurant;
 import com.guikuki.persistence.model.Restaurants;
 import com.guikuki.service.RestaurantService;
+import com.guikuki.util.UtilTests;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.List;
-
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 /**
  * Created by antoniosilvadelpozo on 10/04/14.
@@ -40,7 +34,6 @@ public class HomeControllerTest {
     @Mock
     private RestaurantService restaurantService;
 
-    @InjectMocks
     @Autowired
     private HomeController homeController;
 
@@ -52,6 +45,8 @@ public class HomeControllerTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+        HomeController unwrappedHomeController = (HomeController) UtilTests.unwrapProxy(homeController);
+        ReflectionTestUtils.setField(unwrappedHomeController, "restaurantService", restaurantService);
         homeControllerMockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 

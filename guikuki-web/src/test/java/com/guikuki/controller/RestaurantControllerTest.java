@@ -6,6 +6,7 @@ import com.guikuki.persistence.model.Pictures;
 import com.guikuki.persistence.model.Restaurant;
 import com.guikuki.persistence.model.Restaurants;
 import com.guikuki.service.RestaurantService;
+import com.guikuki.util.UtilTests;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -42,7 +44,6 @@ public class RestaurantControllerTest {
     @Mock
     private RestaurantService restaurantService;
 
-    @InjectMocks
     @Autowired
     private RestaurantController restaurantController;
 
@@ -54,6 +55,8 @@ public class RestaurantControllerTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+        RestaurantController unwrappedRestaurantController = (RestaurantController) UtilTests.unwrapProxy(restaurantController);
+        ReflectionTestUtils.setField(unwrappedRestaurantController, "restaurantService", restaurantService);
         restaurantControllerMockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
