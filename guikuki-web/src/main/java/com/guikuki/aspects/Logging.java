@@ -1,5 +1,6 @@
 package com.guikuki.aspects;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -72,7 +73,7 @@ public class Logging {
         try {
             object = proceedingJoinPoint.proceed();
         } catch (Exception e) {
-            LOGGER.error(proceedingJoinPoint.getSignature().getDeclaringType().getCanonicalName() + SEPARATOR + "Exception: " + e.getMessage());
+            logException(proceedingJoinPoint, e);
             throw e;
         }
 
@@ -107,6 +108,16 @@ public class Logging {
         }
         removeLastComa(argLog);
         LOGGER.info(proceedingJoinPoint.getSignature().getDeclaringType().getCanonicalName() + SEPARATOR + "Args: " + argLog);
+    }
+
+    /**
+     * Logs an exception stack trace.
+     * @param proceedingJoinPoint
+     * @param e: exception to be logged.
+     */
+    private void logException(ProceedingJoinPoint proceedingJoinPoint, Exception e) {
+        LOGGER.error(proceedingJoinPoint.getSignature().getDeclaringType().getCanonicalName() + SEPARATOR + "Exception: " + e.getMessage());
+        LOGGER.error(proceedingJoinPoint.getSignature().getDeclaringType().getCanonicalName() + SEPARATOR + "Stack Trace: " +ExceptionUtils.getStackTrace(e));
     }
 
     /**
