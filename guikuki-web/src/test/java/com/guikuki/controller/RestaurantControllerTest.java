@@ -3,15 +3,14 @@ package com.guikuki.controller;
 import com.guikuki.persistence.exception.RestaurantNotFoundException;
 import com.guikuki.persistence.model.Picture;
 import com.guikuki.persistence.model.Pictures;
-import com.guikuki.persistence.model.Restaurant;
-import com.guikuki.persistence.model.Restaurants;
 import com.guikuki.service.RestaurantService;
+import com.guikuki.service.dto.RestaurantDTO;
+import com.guikuki.service.dto.RestaurantsDTO;
 import com.guikuki.util.UtilTests;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +25,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
@@ -40,6 +40,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 public class RestaurantControllerTest {
+
+    private static final Locale ES = new Locale("es", "ES");
 
     @Mock
     private RestaurantService restaurantService;
@@ -66,46 +68,46 @@ public class RestaurantControllerTest {
 
     @Test
     public void find_all_restaurants_should_return_html_view_if_no_extension_defined() throws Exception {
-        Restaurants mockRestaurantList = createTestRestaurants();
-        when(restaurantService.findAllRestaurants()).thenReturn(mockRestaurantList);
+        RestaurantsDTO mockRestaurantList = createTestRestaurantsDTO(ES);
+        when(restaurantService.findAllRestaurants(ES)).thenReturn(mockRestaurantList);
 
-        Restaurants expectedRestaurants = createTestRestaurants();
-        List<Restaurant> expectedRestaurantList = expectedRestaurants.getRestaurantList();
+        RestaurantsDTO expectedRestaurants = createTestRestaurantsDTO(ES);
+        List<RestaurantDTO> expectedRestaurantList = expectedRestaurants.getRestaurantList();
 
-        restaurantControllerMockMvc.perform(get("/restaurants"))
+        restaurantControllerMockMvc.perform(get("/restaurants").locale(ES))
                 .andExpect(status().isOk())
                 .andExpect(view().name("restaurants"))
                 .andExpect(forwardedUrl("/WEB-INF/jsp/template/layout.jsp"))
                 .andExpect(model().attribute("restaurants", hasProperty("restaurantList")))
                 .andExpect(model().attribute("restaurants", hasProperty("restaurantList", hasSize(2))))
-                .andExpect(model().attribute("restaurants", hasProperty("restaurantList", containsInAnyOrder(expectedRestaurantList.toArray(new Restaurant[expectedRestaurantList.size()])))));
+                .andExpect(model().attribute("restaurants", hasProperty("restaurantList", containsInAnyOrder(expectedRestaurantList.toArray(new RestaurantDTO[expectedRestaurantList.size()])))));
     }
 
     @Test
     public void find_all_restaurants_should_return_json_view_if_json_extension_defined() throws Exception {
-        Restaurants mockRestaurantList = createTestRestaurants();
-        when(restaurantService.findAllRestaurants()).thenReturn(mockRestaurantList);
+        RestaurantsDTO mockRestaurantList = createTestRestaurantsDTO(ES);
+        when(restaurantService.findAllRestaurants(ES)).thenReturn(mockRestaurantList);
 
-        restaurantControllerMockMvc.perform(get("/restaurants.json"))
+        restaurantControllerMockMvc.perform(get("/restaurants.json").locale(ES))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.restaurants.restaurantList", hasSize(2)))
                 .andExpect(jsonPath("$.restaurants.restaurantList[0].id", is("testId1")))
                 .andExpect(jsonPath("$.restaurants.restaurantList[0].name", is("testName1")))
-                .andExpect(jsonPath("$.restaurants.restaurantList[0].description", is("testDescription1")))
+                .andExpect(jsonPath("$.restaurants.restaurantList[0].description", is("testDescription1es")))
                 .andExpect(jsonPath("$.restaurants.restaurantList[1].id", is("testId2")))
                 .andExpect(jsonPath("$.restaurants.restaurantList[1].name", is("testName2")))
-                .andExpect(jsonPath("$.restaurants.restaurantList[1].description", is("testDescription2")));
+                .andExpect(jsonPath("$.restaurants.restaurantList[1].description", is("testDescription2es")));
     }
 
     @Test
     public void find_all_restaurants_should_return_xml_view_if_xml_extension_defined() throws Exception {
-        Restaurants mockRestaurantList = createTestRestaurants();
-        when(restaurantService.findAllRestaurants()).thenReturn(mockRestaurantList);
+        RestaurantsDTO mockRestaurantList = createTestRestaurantsDTO(ES);
+        when(restaurantService.findAllRestaurants(ES)).thenReturn(mockRestaurantList);
 
         String expectedXML = createExpectedXMLStringForFindAllRestaurants();
 
-        restaurantControllerMockMvc.perform(get("/restaurants.xml"))
+        restaurantControllerMockMvc.perform(get("/restaurants.xml").locale(ES))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_XML))
                 .andExpect(content().xml(expectedXML));
@@ -117,7 +119,7 @@ public class RestaurantControllerTest {
                         "<restaurant>" +
                             "<id>testId1</id>" +
                             "<name>testName1</name>" +
-                            "<description>testDescription1</description>" +
+                            "<description>testDescription1es</description>" +
                             "<pictures>"+
                                 "<main>" +
                                     "<filename>testFileName1</filename>" +
@@ -127,7 +129,7 @@ public class RestaurantControllerTest {
                         "<restaurant>" +
                             "<id>testId2</id>" +
                             "<name>testName2</name>" +
-                            "<description>testDescription2</description>" +
+                            "<description>testDescription2es</description>" +
                             "<pictures>"+
                                 "<main>" +
                                     "<filename>testFileName2</filename>" +
@@ -139,12 +141,12 @@ public class RestaurantControllerTest {
 
     @Test
     public void find_restaurant_by_id_should_return_html_view_if_no_extension_defined() throws Exception {
-        Restaurant mockRestaurant = createTestRestaurant("id", "name", "description", "filename");
-        when(restaurantService.findRestaurantById("id")).thenReturn(mockRestaurant);
+        RestaurantDTO mockRestaurant = createTestRestaurantDTO("id", "name", "description", "filename");
+        when(restaurantService.findRestaurantById("id", ES)).thenReturn(mockRestaurant);
 
-        Restaurant expectedRestaurant = createTestRestaurant("id", "name", "description", "filename");
+        RestaurantDTO expectedRestaurant = createTestRestaurantDTO("id", "name", "description", "filename");
 
-        restaurantControllerMockMvc.perform(get("/restaurants/{id}", "id"))
+        restaurantControllerMockMvc.perform(get("/restaurants/{id}", "id").locale(ES))
             .andExpect(status().isOk())
             .andExpect(view().name("restaurantDetail"))
             .andExpect(forwardedUrl("/WEB-INF/jsp/template/layout.jsp"))
@@ -153,10 +155,10 @@ public class RestaurantControllerTest {
 
     @Test
     public void find_restaurant_by_id_should_return_json_view_if_json_extension_defined() throws Exception {
-        Restaurant mockRestaurant = createTestRestaurant("id", "name", "description", "filename");
-        when(restaurantService.findRestaurantById("id")).thenReturn(mockRestaurant);
+        RestaurantDTO mockRestaurant = createTestRestaurantDTO("id", "name", "description", "filename");
+        when(restaurantService.findRestaurantById("id", ES)).thenReturn(mockRestaurant);
 
-        restaurantControllerMockMvc.perform(get("/restaurants/{id}.json", "id"))
+        restaurantControllerMockMvc.perform(get("/restaurants/{id}.json", "id").locale(ES))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.restaurant.id", is("id")))
@@ -166,12 +168,12 @@ public class RestaurantControllerTest {
 
     @Test
     public void find_restaurant_by_id_should_return_xml_view_if_xml_extension_defined() throws Exception {
-        Restaurant mockRestaurant = createTestRestaurant("id", "name", "description", "filename");
-        when(restaurantService.findRestaurantById("id")).thenReturn(mockRestaurant);
+        RestaurantDTO mockRestaurant = createTestRestaurantDTO("id", "name", "description", "filename");
+        when(restaurantService.findRestaurantById("id", ES)).thenReturn(mockRestaurant);
 
         String expectedXML = createExpectedXMLStringForFindRestaurantById();
 
-        restaurantControllerMockMvc.perform(get("/restaurants/{id}.xml", "id"))
+        restaurantControllerMockMvc.perform(get("/restaurants/{id}.xml", "id").locale(ES))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_XML))
                 .andExpect(content().xml(expectedXML));
@@ -194,32 +196,33 @@ public class RestaurantControllerTest {
     @Test
     public void find_restaurant_by_id_should_return_404_if_restaurant_id_not_exists() throws Exception {
         String nonExistentRestaurantId = "nonExistentRestaurantId";
-        when(restaurantService.findRestaurantById(nonExistentRestaurantId)).thenThrow(new RestaurantNotFoundException("Restaurant with id: " + nonExistentRestaurantId + " not found."));
+        when(restaurantService.findRestaurantById(nonExistentRestaurantId, ES)).thenThrow(new RestaurantNotFoundException("Restaurant with id: " + nonExistentRestaurantId + " not found."));
 
-        restaurantControllerMockMvc.perform(get("/restaurants/{id}", nonExistentRestaurantId))
+        restaurantControllerMockMvc.perform(get("/restaurants/{id}", nonExistentRestaurantId).locale(ES))
                 .andExpect(status().isNotFound());
     }
 
     /**
-     * Creates a Restaurant instance for testing.
-     * @return Restaurant.
+     * Creates a RestaurantDTO instance for testing.
+     * @return RestaurantDTO.
      */
-    private static Restaurant createTestRestaurant(String testId, String testName, String testDescription, String testFileName) {
+    private RestaurantDTO createTestRestaurantDTO(String testId, String testName, String testDescription, String testFileName) {
         Picture testPicture = new Picture(testFileName);
         Pictures testPictures = new Pictures(testPicture);
-        return new Restaurant(testId, testName, testDescription, testPictures);
+        return new RestaurantDTO(testId, testName, testDescription, testPictures);
     }
 
     /**
-     * Creates a List of Restaurants instances for testing.
+     * Creates a List of RestaurantsDTO instances for testing.
      * @return List<Restaurant>
      */
-    private Restaurants createTestRestaurants() {
-        List<Restaurant> testRestaurantsList = new ArrayList<Restaurant>();
-        testRestaurantsList.add(createTestRestaurant("testId1", "testName1", "testDescription1", "testFileName1"));
-        testRestaurantsList.add(createTestRestaurant("testId2", "testName2", "testDescription2", "testFileName2"));
-        Restaurants testRestaurants = new Restaurants(testRestaurantsList);
-        return testRestaurants;
+    private RestaurantsDTO createTestRestaurantsDTO(Locale locale) {
+        List<RestaurantDTO> testRestaurantsDTOList = new ArrayList<RestaurantDTO>();
+        String testDescription1 = "testDescription1" + locale.getLanguage().toString();
+        String testDescription2 = "testDescription2" + locale.getLanguage().toString();
+        testRestaurantsDTOList.add(createTestRestaurantDTO("testId1", "testName1", testDescription1, "testFileName1"));
+        testRestaurantsDTOList.add(createTestRestaurantDTO("testId2", "testName2", testDescription2, "testFileName2"));
+        return new RestaurantsDTO(testRestaurantsDTOList);
     }
 
 }

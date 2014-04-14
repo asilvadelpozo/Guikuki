@@ -1,7 +1,7 @@
 package com.guikuki.controller;
 
-import com.guikuki.persistence.model.Restaurants;
 import com.guikuki.service.RestaurantService;
+import com.guikuki.service.dto.RestaurantsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Locale;
 
 /**
  * Controller for Home page.
@@ -22,10 +24,10 @@ public class HomeController {
 
     @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public ModelAndView showHomePage() {
+    public ModelAndView showHomePage(Locale locale) {
         ModelAndView model = new ModelAndView("home");
-        Restaurants restaurants = restaurantService.findAllRestaurants();
-        model.addObject("restaurants", restaurants);
+        RestaurantsDTO restaurantsDTO = restaurantService.findAllRestaurants(locale);
+        model.addObject("restaurants", restaurantsDTO);
         return model;
     }
 

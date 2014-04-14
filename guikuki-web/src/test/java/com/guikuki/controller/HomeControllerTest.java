@@ -1,7 +1,7 @@
 package com.guikuki.controller;
 
-import com.guikuki.persistence.model.Restaurants;
 import com.guikuki.service.RestaurantService;
+import com.guikuki.service.dto.RestaurantsDTO;
 import com.guikuki.util.UtilTests;
 import org.junit.After;
 import org.junit.Before;
@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Locale;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -30,6 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 public class HomeControllerTest {
+
+    private static final Locale ES = new Locale("es", "ES");
 
     @Mock
     private RestaurantService restaurantService;
@@ -56,8 +60,8 @@ public class HomeControllerTest {
 
     @Test
     public void show_home_page_should_return_html_view() throws Exception {
-        Restaurants mockRestaurantList = mock(Restaurants.class);
-        when(restaurantService.findAllRestaurants()).thenReturn(mockRestaurantList);
+        RestaurantsDTO mockRestaurantList = mock(RestaurantsDTO.class);
+        when(restaurantService.findAllRestaurants(ES)).thenReturn(mockRestaurantList);
 
         homeControllerMockMvc.perform(get("/home"))
                 .andExpect(status().isOk())

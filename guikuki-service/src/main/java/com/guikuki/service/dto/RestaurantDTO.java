@@ -1,40 +1,54 @@
 /**
  * 
  */
-package com.guikuki.persistence.model;
+package com.guikuki.service.dto;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.guikuki.persistence.model.Pictures;
+import com.guikuki.persistence.model.Restaurant;
 
-import java.util.HashMap;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import java.util.Locale;
 
 /**
  * Model object to represent Restaurants from the mongodb collection restaurants
  * @author antoniosilvadelpozo
  *
  */
-@Document(collection = "restaurants")
-public class Restaurant {
-	
-	@Id
+@XmlRootElement(name = "restaurant")
+@XmlType(propOrder = {"id", "name", "description", "pictures"})
+public class RestaurantDTO {
+
+    private static final Locale DEFAULT_LOCALE = new Locale("es", "ES");
+
 	private String id;
     private String name;
-	private HashMap<String, String> description;
+	private String description;
 	private Pictures pictures;
 
-    public Restaurant(){}
+    public RestaurantDTO(){}
 
-    public Restaurant(String id, String name, HashMap<String, String> description, Pictures pictures) {
+    public RestaurantDTO(String id, String name, String description, Pictures pictures) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.pictures = pictures;
     }
 
+    public RestaurantDTO(Restaurant restaurant, Locale locale) {
+        this.id = restaurant.getId();
+        this.name = restaurant.getName();
+        this.description = (restaurant.getDescription().get(locale.getLanguage().toString()) == null) ?
+                restaurant.getDescription().get(DEFAULT_LOCALE.getLanguage().toString()) : restaurant.getDescription().get(locale.getLanguage().toString());
+        this.pictures = restaurant.getPictures();
+    }
+
     public String getId() {
 		return id;
 	}
 
+    @XmlElement(name = "id")
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -43,15 +57,17 @@ public class Restaurant {
 		return name;
 	}
 
+    @XmlElement(name = "name")
 	public void setName(String name) {
 		this.name = name;
 	}
 	
-	public HashMap<String, String> getDescription() {
+	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(HashMap<String, String> description) {
+    @XmlElement(name = "description")
+	public void setDescription(String description) {
 		this.description = description;
 	}
 
@@ -59,6 +75,7 @@ public class Restaurant {
 		return pictures;
 	}
 
+    @XmlElement(name = "pictures")
 	public void setPictures(Pictures pictures) {
 		this.pictures = pictures;
 	}
@@ -68,7 +85,7 @@ public class Restaurant {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Restaurant that = (Restaurant) o;
+        RestaurantDTO that = (RestaurantDTO) o;
 
         if (!description.equals(that.description)) return false;
         if (!id.equals(that.id)) return false;

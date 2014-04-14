@@ -7,15 +7,14 @@ import com.guikuki.persistence.model.Pictures;
 import com.guikuki.persistence.model.Restaurant;
 import com.guikuki.persistence.model.Restaurants;
 import com.guikuki.service.RestaurantService;
+import com.guikuki.service.dto.RestaurantDTO;
+import com.guikuki.service.dto.RestaurantsDTO;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.Assert.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -24,8 +23,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 /**
@@ -34,6 +38,10 @@ import static org.mockito.Mockito.when;
 @ContextConfiguration(locations = {"classpath:service-context-test.xml", "classpath:persistence-context-test.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RestaurantServiceImplTest {
+
+    private static final Locale ES = new Locale("es", "ES");
+    private static final Locale EN = new Locale("en", "EN");
+    private static final Locale DE = new Locale("de", "DE");
 
     @Mock
     private RestaurantDAO restaurantDAO;
@@ -56,44 +64,115 @@ public class RestaurantServiceImplTest {
 
     @Test
     public void should_return_test_restaurant() throws Exception {
-        Restaurant mockRestaurant = createTestRestaurant("id", "name", "description", "filename");
+        HashMap<String, String> description = new HashMap<String, String>();
+        description.put("es", "descriptionEs");
+        description.put("en", "descriptionEn");
+        Restaurant mockRestaurant = createMockRestaurant("id", "name", description, "filename");
         when(restaurantDAO.findRestaurantById("id")).thenReturn(mockRestaurant);
 
-        Restaurant actualRestaurant = restaurantService.findRestaurantById("id");
-        Restaurant expectedRestaurant = createTestRestaurant("id", "name", "description", "filename");
+        RestaurantDTO actualRestaurant = restaurantService.findRestaurantById("id", ES);
+        RestaurantDTO expectedRestaurant = createTestRestaurantDTO("id", "name", "descriptionEs", "filename");
+
+        assertEquals(actualRestaurant, expectedRestaurant);
+    }
+
+    @Test
+    public void should_return_restaurant_according_to_locale() throws Exception {
+        HashMap<String, String> description = new HashMap<String, String>();
+        description.put("es", "descriptionEs");
+        description.put("en", "descriptionEn");
+        Restaurant mockRestaurant = createMockRestaurant("id", "name", description, "filename");
+        when(restaurantDAO.findRestaurantById("id")).thenReturn(mockRestaurant);
+
+        RestaurantDTO restaurantEs = restaurantService.findRestaurantById("id", ES);
+        RestaurantDTO expectedRestaurantEs = createTestRestaurantDTO("id", "name", "descriptionEs", "filename");
+
+        RestaurantDTO restaurantEn = restaurantService.findRestaurantById("id", EN);
+        RestaurantDTO expectedRestaurantEn = createTestRestaurantDTO("id", "name", "descriptionEn", "filename");
+
+        assertEquals(restaurantEs, expectedRestaurantEs);
+        assertEquals(restaurantEn, expectedRestaurantEn);
+    }
+
+    @Test
+    public void should_return_default_restaurant_if_locale_does_not_exists() throws Exception {
+        HashMap<String, String> description = new HashMap<String, String>();
+        description.put("es", "descriptionEs");
+        description.put("en", "descriptionEn");
+        Restaurant mockRestaurant = createMockRestaurant("id", "name", description, "filename");
+        when(restaurantDAO.findRestaurantById("id")).thenReturn(mockRestaurant);
+
+        RestaurantDTO actualRestaurant = restaurantService.findRestaurantById("id", DE);
+        RestaurantDTO expectedRestaurant = createTestRestaurantDTO("id", "name", "descriptionEs", "filename");
 
         assertEquals(actualRestaurant, expectedRestaurant);
     }
 
     @Test
     public void should_return_all_restaurants() throws Exception {
-        Restaurants mockRestaurantList = createTestRestaurants();
+        Restaurants mockRestaurantList = createMockRestaurants();
         when(restaurantDAO.findAllRestaurants()).thenReturn(mockRestaurantList);
 
-        Restaurants actualRestaurants = restaurantService.findAllRestaurants();
-        List<Restaurant> actualRestaurantList = actualRestaurants.getRestaurantList();
-        Restaurants expectedRestaurants = createTestRestaurants();
-        List<Restaurant> expectedRestaurantList = expectedRestaurants.getRestaurantList();
+        RestaurantsDTO actualRestaurants = restaurantService.findAllRestaurants(ES);
+        List<RestaurantDTO> actualRestaurantList = actualRestaurants.getRestaurantList();
+        RestaurantsDTO expectedRestaurants = createTestRestaurants(ES);
+        List<RestaurantDTO> expectedRestaurantList = expectedRestaurants.getRestaurantList();
 
-        assertThat(actualRestaurantList, containsInAnyOrder(expectedRestaurantList.toArray(new Restaurant[expectedRestaurantList.size()])));
+        assertThat(actualRestaurantList, containsInAnyOrder(expectedRestaurantList.toArray(new RestaurantDTO[expectedRestaurantList.size()])));
     }
 
     @Test
-    public void should_throw_not_found_exception_if_irestaurant_id_does_not_exists() throws RestaurantNotFoundException {
+    public void should_return_default_restaurants_if_locale_does_not_exists() throws Exception {
+        Restaurants mockRestaurantList = createMockRestaurants();
+        when(restaurantDAO.findAllRestaurants()).thenReturn(mockRestaurantList);
+
+        RestaurantsDTO actualRestaurants = restaurantService.findAllRestaurants(DE);
+        List<RestaurantDTO> actualRestaurantList = actualRestaurants.getRestaurantList();
+        RestaurantsDTO expectedRestaurants = createTestRestaurants(ES);
+        List<RestaurantDTO> expectedRestaurantList = expectedRestaurants.getRestaurantList();
+
+        assertThat(actualRestaurantList, containsInAnyOrder(expectedRestaurantList.toArray(new RestaurantDTO[expectedRestaurantList.size()])));
+    }
+
+    @Test
+    public void should_throw_not_found_exception_if_restaurant_id_does_not_exists() throws RestaurantNotFoundException {
         String nonExistentRestaurantId = "nonExistentRestaurantId";
         when(restaurantDAO.findRestaurantById(nonExistentRestaurantId)).thenThrow(new RestaurantNotFoundException("Restaurant with id: " + nonExistentRestaurantId + " not found."));
 
         restaurantNotFoundException.expect(RestaurantNotFoundException.class);
         restaurantNotFoundException.expectMessage("Restaurant with id: " + nonExistentRestaurantId + " not found.");
 
-        restaurantService.findRestaurantById(nonExistentRestaurantId);
+        restaurantService.findRestaurantById(nonExistentRestaurantId, ES);
+    }
+
+    /**
+     * Creates a RestaurantDTO instance for testing.
+     * @return RestaurantDTO.
+     */
+    private RestaurantDTO createTestRestaurantDTO(String testId, String testName, String testDescription, String testFileName) {
+        Picture testPicture = new Picture(testFileName);
+        Pictures testPictures = new Pictures(testPicture);
+        return new RestaurantDTO(testId, testName, testDescription, testPictures);
+    }
+
+    /**
+     * Creates a List of RestaurantsDTO instances for testing.
+     * @return List<Restaurant>
+     */
+    private RestaurantsDTO createTestRestaurants(Locale locale) {
+        List<RestaurantDTO> testRestaurantsDTOList = new ArrayList<RestaurantDTO>();
+        String testDescription1 = "testDescription1" + locale.getLanguage().toString();
+        String testDescription2 = "testDescription2" + locale.getLanguage().toString();
+        testRestaurantsDTOList.add(createTestRestaurantDTO("testId1", "testName1", testDescription1, "testFileName1"));
+        testRestaurantsDTOList.add(createTestRestaurantDTO("testId2", "testName2", testDescription2, "testFileName2"));
+        return new RestaurantsDTO(testRestaurantsDTOList);
     }
 
     /**
      * Creates a Restaurant instance for testing.
      * @return Restaurant.
      */
-    private static Restaurant createTestRestaurant(String testId, String testName, String testDescription, String testFileName) {
+    private static Restaurant createMockRestaurant(String testId, String testName, HashMap<String, String> testDescription, String testFileName) {
         Picture testPicture = new Picture(testFileName);
         Pictures testPictures = new Pictures(testPicture);
         return new Restaurant(testId, testName, testDescription, testPictures);
@@ -103,10 +182,16 @@ public class RestaurantServiceImplTest {
      * Creates a List of Restaurants instances for testing.
      * @return List<Restaurant>
      */
-    private Restaurants createTestRestaurants() {
+    private Restaurants createMockRestaurants() {
         List<Restaurant> testRestaurantsList = new ArrayList<Restaurant>();
-        testRestaurantsList.add(createTestRestaurant("testId1", "testName1", "testDescription1", "testFileName1"));
-        testRestaurantsList.add(createTestRestaurant("testId2", "testName2", "testDescription2", "testFileName2"));
+        HashMap<String, String> testDescription1 = new HashMap<String, String>();
+        testDescription1.put("es", "testDescription1es");
+        testDescription1.put("en", "testDescription1en");
+        HashMap<String, String> testDescription2 = new HashMap<String, String>();
+        testDescription2.put("es", "testDescription2es");
+        testDescription2.put("en", "testDescription2en");
+        testRestaurantsList.add(createMockRestaurant("testId1", "testName1", testDescription1, "testFileName1"));
+        testRestaurantsList.add(createMockRestaurant("testId2", "testName2", testDescription2, "testFileName2"));
         Restaurants testRestaurants = new Restaurants(testRestaurantsList);
         return testRestaurants;
     }

@@ -3,23 +3,16 @@
  */
 package com.guikuki.persistence.dao.impl;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-
 import com.guikuki.persistence.dao.RestaurantDAO;
 import com.guikuki.persistence.exception.RestaurantNotFoundException;
 import com.guikuki.persistence.model.Picture;
 import com.guikuki.persistence.model.Pictures;
 import com.guikuki.persistence.model.Restaurant;
 import com.guikuki.persistence.model.Restaurants;
-import de.flapdoodle.embed.mongo.MongodExecutable;
-import de.flapdoodle.embed.mongo.MongodProcess;
-import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
-import de.flapdoodle.embed.mongo.config.Net;
-import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.process.runtime.Network;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +21,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author antoniosilvadelpozo
@@ -68,7 +66,10 @@ public class RestaurantDAOImplTest {
     @Test
     public void should_return_test_restaurant() throws RestaurantNotFoundException{
         Restaurant actualRestaurant = restaurantDAO.findRestaurantById("testId1");
-        Restaurant expectedRestaurant = createTestRestaurant("testId1", "testName1", "testDescription1", "testFileName1");
+        HashMap<String, String> testDescription1 = new HashMap<String, String>();
+        testDescription1.put("es", "testDescription1Es");
+        testDescription1.put("en", "testDescription1En");
+        Restaurant expectedRestaurant = createTestRestaurant("testId1", "testName1", testDescription1, "testFileName1");
         assertThat(actualRestaurant, equalTo(expectedRestaurant));
     }
 
@@ -94,7 +95,7 @@ public class RestaurantDAOImplTest {
      * Creates a Restaurant instance for testing.
      * @return Restaurant.
      */
-    private static Restaurant createTestRestaurant(String testId, String testName, String testDescription, String testFileName) {
+    private Restaurant createTestRestaurant(String testId, String testName, HashMap<String, String> testDescription, String testFileName) {
         Picture testPicture = new Picture(testFileName);
         Pictures testPictures = new Pictures(testPicture);
         return new Restaurant(testId, testName, testDescription, testPictures);
@@ -106,8 +107,14 @@ public class RestaurantDAOImplTest {
      */
     private List<Restaurant> createTestRestaurants() {
         List<Restaurant> testRestaurants = new ArrayList<Restaurant>();
-        testRestaurants.add(createTestRestaurant("testId1", "testName1", "testDescription1", "testFileName1"));
-        testRestaurants.add(createTestRestaurant("testId2", "testName2", "testDescription2", "testFileName2"));
+        HashMap<String, String> testDescription1 = new HashMap<String, String>();
+        testDescription1.put("es", "testDescription1Es");
+        testDescription1.put("en", "testDescription1En");
+        HashMap<String, String> testDescription2 = new HashMap<String, String>();
+        testDescription2.put("es", "testDescription2Es");
+        testDescription2.put("en", "testDescription2En");
+        testRestaurants.add(createTestRestaurant("testId1", "testName1", testDescription1, "testFileName1"));
+        testRestaurants.add(createTestRestaurant("testId2", "testName2", testDescription2, "testFileName2"));
         return testRestaurants;
     }
 
