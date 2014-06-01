@@ -1,0 +1,38 @@
+// Contains common layout rules used across the site.
+
+@import "colors";
+
+$context: 1000px;
+
+%marginContent {
+  width: $context;
+  padding: 10px;
+  margin: auto;
+}
+
+@mixin completeFont($font) {
+  font-family: $font, Verdana, sans-serif;
+}
+
+@mixin rotate($degrees) {
+  transform:rotate($degrees);
+  -ms-transform:rotate($degrees); /* IE 9 */
+  -webkit-transform:rotate($degrees); /* Opera, Chrome, and Safari */
+}
+
+@mixin giveBorderToPicture($width) {
+  border-width: $width;
+  border-color: $white;
+  border-style: solid;
+}
+
+// Increases the size of the first letter to 3 rows and casts an especial shadow efect.
+@mixin formatFirstLetter($firstShadowColor, $secondShadowColor) {
+  font-size: 500%;
+  font-weight: bolder;
+  float:left;
+  margin: 0px 5px 0px 0px;
+  padding: 0px;
+  line-height: 0.8;
+  text-shadow: 2px 2px 0 $firstShadowColor, 5px 5px 0 $secondShadowColor;
+}

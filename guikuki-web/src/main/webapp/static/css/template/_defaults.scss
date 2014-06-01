@@ -1,0 +1,26 @@
+// Contains default values for html elements.
+
+@import "layout";
+
+body {
+    @include completeFont(Georgia);
+  	font-size: small;
+  	margin: 0px;
+  	background-image: url("/static/images/background_pattern.png");
+}
+
+p {
+    @include completeFont(Existence-Light);
+	font-size: 150%;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+#content {
+  @extend %marginContent;
+  background-color: $white;
+}

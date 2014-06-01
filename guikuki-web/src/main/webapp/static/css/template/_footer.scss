@@ -1,0 +1,13 @@
+// Footer definitions.
+
+@import "layout";
+
+footer {
+    color: $green;
+    @include completeFont(Capsuula);
+    background-color: $darkBrown;
+	font-size: 120%;
+	text-align: center;
+	height: 20px;
+	padding: 10px;
+}

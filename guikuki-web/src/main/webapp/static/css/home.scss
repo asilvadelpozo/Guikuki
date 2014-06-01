@@ -1,0 +1,64 @@
+@import "template/fonts";
+@import "template/colors";
+@import "template/defaults";
+@import "template/social";
+@import "template/header";
+@import "template/footer";
+
+.restaurant {
+    display: table;
+    margin: 30px;
+    position: relative;
+    &:before {
+        background: url("/static/images/clip-left.png") no-repeat scroll 0 0 transparent;
+        position: absolute;
+        content: '';
+        left: -13px;
+        top: 85px;
+        z-index: 10;
+        width: 100px;
+        height: 80px;
+        display: inline-block;
+    }
+}
+
+.headerRestaurant {
+    display: table-row;
+    p {
+        display: table-cell;
+        @include completeFont(Amatic-Bold);
+        &.titleRestaurant {
+            background-color: $lightBrown;
+            color: $darkBrown;
+            text-align: center;
+            font-size: 250%;
+            border-radius: 20px 20px 0px 0px;
+            padding-top: 20px;
+            font-weight: bolder;
+        }
+    }
+}
+
+.contentRestaurant {
+    display: table-row;
+    background-color: $lightBrown;
+    img {
+        display: table-cell;
+        margin: 40px;
+        vertical-align: top;
+        @include giveBorderToPicture(20px);
+        @include rotate(-7deg);
+    }
+    .descriptionRestaurant {
+        display: table-cell;
+        padding: 30px;
+        vertical-align: top;
+        border-radius: 0px 20px 20px 0px;
+        color: $darkBrown;
+        p {
+            &:first-letter{
+                @include formatFirstLetter($lighterBrown, $darkBrown);
+            }
+        }
+    }
+}

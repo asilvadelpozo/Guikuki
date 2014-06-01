@@ -1,0 +1,54 @@
+// Header Definitions.
+
+@import "layout";
+
+#header {
+    color: $green;
+    @include completeFont(Capsuula);
+    background-color: $darkBrown;
+    margin: 0px;
+    font-size: 700%;
+    width: 100%;
+    font-weight: bolder;
+}
+
+#headerContent {
+  @extend %marginContent;
+}
+
+#headerNavigation {
+  font-size: 25%;
+  text-align: right;
+}
+
+%linkAndVisitedPlaceHolder {
+  color: $green;
+}
+
+%hoverAndFocusPlaceHolder {
+  color: $darkBrown;
+  background-color: $green;
+  transition: all .5s ease-in-out;
+}
+
+#headerNavigation ul li {
+  display: inline;
+  a {
+      padding: 5px 10px 5px 10px;
+      border-radius: 5px;
+      text-decoration:none;
+      transition: all .5s ease-in-out;
+      &:link {
+          @extend %linkAndVisitedPlaceHolder;
+      }
+      &:visited {
+          @extend %linkAndVisitedPlaceHolder;
+      }
+      &:hover {
+          @extend %hoverAndFocusPlaceHolder;
+      }
+      &:focus {
+        @extend %hoverAndFocusPlaceHolder;
+      }
+  }
+}

@@ -1,0 +1,17 @@
+// Social Section definitions.
+
+@import "layout";
+
+#social {
+    @extend %marginContent;
+    background-color: $white;
+    height: 20px;
+    a {
+      font-size: 140%;
+      text-decoration:none;
+      color: $green;
+      @include completeFont(Capsuula);
+    }
+}
+
+

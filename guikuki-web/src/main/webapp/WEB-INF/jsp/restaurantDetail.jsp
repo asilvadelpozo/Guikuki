@@ -11,12 +11,10 @@
 <article class="restaurant">
     <header class="headerRestaurant">
         <p class="titleRestaurant">${param.name}</p>
-
         <p></p>
     </header>
     <section class="contentRestaurant">
         <img src="<c:url value="/photo/${param.id}/content" />" alt="${param.name}">
-
         <div class="descriptionRestaurant">
             <p>${param.description}</p>
         </div>

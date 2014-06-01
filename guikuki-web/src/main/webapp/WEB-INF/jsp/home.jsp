@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<section id="restaurantList">
+<section>
     <ul>
         <c:forEach items="${restaurants.restaurantList}" var="restaurant">
             <li>
