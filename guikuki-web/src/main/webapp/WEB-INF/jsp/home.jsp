@@ -12,20 +12,11 @@
     <ul>
         <c:forEach items="${restaurants.restaurantList}" var="restaurant">
             <li>
-                <article class="restaurant">
-                    <header class="headerRestaurant">
-                        <p class="titleRestaurant">${restaurant.name}</p>
-
-                        <p></p>
-                    </header>
-                    <section class="contentRestaurant">
-                        <img src="<c:url value="/photo/${restaurant.id}/content" />" alt="${restaurant.name}">
-
-                        <div class="descriptionRestaurant">
-                            <p>${restaurant.description}</p>
-                        </div>
-                    </section>
-                </article>
+                <jsp:include page="restaurantDetail.jsp">
+                    <jsp:param name="id" value="${restaurant.id}" />
+                    <jsp:param name="name" value="${restaurant.name}" />
+                    <jsp:param name="description" value="${restaurant.description}" />
+                </jsp:include>
             </li>
         </c:forEach>
     </ul>
