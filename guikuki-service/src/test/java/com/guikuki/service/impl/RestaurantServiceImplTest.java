@@ -7,8 +7,8 @@ import com.guikuki.persistence.model.Pictures;
 import com.guikuki.persistence.model.Restaurant;
 import com.guikuki.persistence.model.Restaurants;
 import com.guikuki.service.RestaurantService;
-import com.guikuki.service.dto.RestaurantDTO;
-import com.guikuki.service.dto.RestaurantsDTO;
+import com.guikuki.service.dto.RestaurantListItemDTO;
+import com.guikuki.service.dto.RestaurantListDTO;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -70,8 +70,8 @@ public class RestaurantServiceImplTest {
         Restaurant mockRestaurant = createMockRestaurant("id", "name", description, "filename");
         when(restaurantDAO.findRestaurantById("id")).thenReturn(mockRestaurant);
 
-        RestaurantDTO actualRestaurant = restaurantService.findRestaurantById("id", ES);
-        RestaurantDTO expectedRestaurant = createTestRestaurantDTO("id", "name", "descriptionEs", "filename");
+        RestaurantListItemDTO actualRestaurant = restaurantService.findRestaurantById("id", ES);
+        RestaurantListItemDTO expectedRestaurant = createTestRestaurantDTO("id", "name", "descriptionEs", "filename");
 
         assertEquals(actualRestaurant, expectedRestaurant);
     }
@@ -84,11 +84,11 @@ public class RestaurantServiceImplTest {
         Restaurant mockRestaurant = createMockRestaurant("id", "name", description, "filename");
         when(restaurantDAO.findRestaurantById("id")).thenReturn(mockRestaurant);
 
-        RestaurantDTO restaurantEs = restaurantService.findRestaurantById("id", ES);
-        RestaurantDTO expectedRestaurantEs = createTestRestaurantDTO("id", "name", "descriptionEs", "filename");
+        RestaurantListItemDTO restaurantEs = restaurantService.findRestaurantById("id", ES);
+        RestaurantListItemDTO expectedRestaurantEs = createTestRestaurantDTO("id", "name", "descriptionEs", "filename");
 
-        RestaurantDTO restaurantEn = restaurantService.findRestaurantById("id", EN);
-        RestaurantDTO expectedRestaurantEn = createTestRestaurantDTO("id", "name", "descriptionEn", "filename");
+        RestaurantListItemDTO restaurantEn = restaurantService.findRestaurantById("id", EN);
+        RestaurantListItemDTO expectedRestaurantEn = createTestRestaurantDTO("id", "name", "descriptionEn", "filename");
 
         assertEquals(restaurantEs, expectedRestaurantEs);
         assertEquals(restaurantEn, expectedRestaurantEn);
@@ -102,8 +102,8 @@ public class RestaurantServiceImplTest {
         Restaurant mockRestaurant = createMockRestaurant("id", "name", description, "filename");
         when(restaurantDAO.findRestaurantById("id")).thenReturn(mockRestaurant);
 
-        RestaurantDTO actualRestaurant = restaurantService.findRestaurantById("id", DE);
-        RestaurantDTO expectedRestaurant = createTestRestaurantDTO("id", "name", "descriptionEs", "filename");
+        RestaurantListItemDTO actualRestaurant = restaurantService.findRestaurantById("id", DE);
+        RestaurantListItemDTO expectedRestaurant = createTestRestaurantDTO("id", "name", "descriptionEs", "filename");
 
         assertEquals(actualRestaurant, expectedRestaurant);
     }
@@ -113,12 +113,12 @@ public class RestaurantServiceImplTest {
         Restaurants mockRestaurantList = createMockRestaurants();
         when(restaurantDAO.findAllRestaurants()).thenReturn(mockRestaurantList);
 
-        RestaurantsDTO actualRestaurants = restaurantService.findAllRestaurants(ES);
-        List<RestaurantDTO> actualRestaurantList = actualRestaurants.getRestaurantList();
-        RestaurantsDTO expectedRestaurants = createTestRestaurants(ES);
-        List<RestaurantDTO> expectedRestaurantList = expectedRestaurants.getRestaurantList();
+        RestaurantListDTO actualRestaurants = restaurantService.findAllRestaurants(ES);
+        List<RestaurantListItemDTO> actualRestaurantList = actualRestaurants.getRestaurantList();
+        RestaurantListDTO expectedRestaurants = createTestRestaurants(ES);
+        List<RestaurantListItemDTO> expectedRestaurantList = expectedRestaurants.getRestaurantList();
 
-        assertThat(actualRestaurantList, containsInAnyOrder(expectedRestaurantList.toArray(new RestaurantDTO[expectedRestaurantList.size()])));
+        assertThat(actualRestaurantList, containsInAnyOrder(expectedRestaurantList.toArray(new RestaurantListItemDTO[expectedRestaurantList.size()])));
     }
 
     @Test
@@ -126,12 +126,12 @@ public class RestaurantServiceImplTest {
         Restaurants mockRestaurantList = createMockRestaurants();
         when(restaurantDAO.findAllRestaurants()).thenReturn(mockRestaurantList);
 
-        RestaurantsDTO actualRestaurants = restaurantService.findAllRestaurants(DE);
-        List<RestaurantDTO> actualRestaurantList = actualRestaurants.getRestaurantList();
-        RestaurantsDTO expectedRestaurants = createTestRestaurants(ES);
-        List<RestaurantDTO> expectedRestaurantList = expectedRestaurants.getRestaurantList();
+        RestaurantListDTO actualRestaurants = restaurantService.findAllRestaurants(DE);
+        List<RestaurantListItemDTO> actualRestaurantList = actualRestaurants.getRestaurantList();
+        RestaurantListDTO expectedRestaurants = createTestRestaurants(ES);
+        List<RestaurantListItemDTO> expectedRestaurantList = expectedRestaurants.getRestaurantList();
 
-        assertThat(actualRestaurantList, containsInAnyOrder(expectedRestaurantList.toArray(new RestaurantDTO[expectedRestaurantList.size()])));
+        assertThat(actualRestaurantList, containsInAnyOrder(expectedRestaurantList.toArray(new RestaurantListItemDTO[expectedRestaurantList.size()])));
     }
 
     @Test
@@ -149,23 +149,23 @@ public class RestaurantServiceImplTest {
      * Creates a RestaurantDTO instance for testing.
      * @return RestaurantDTO.
      */
-    private RestaurantDTO createTestRestaurantDTO(String testId, String testName, String testDescription, String testFileName) {
+    private RestaurantListItemDTO createTestRestaurantDTO(String testId, String testName, String testDescription, String testFileName) {
         Picture testPicture = new Picture(testFileName);
         Pictures testPictures = new Pictures(testPicture);
-        return new RestaurantDTO(testId, testName, testDescription, testPictures);
+        return new RestaurantListItemDTO(testId, testName, testDescription, testPictures);
     }
 
     /**
      * Creates a List of RestaurantsDTO instances for testing.
      * @return List<Restaurant>
      */
-    private RestaurantsDTO createTestRestaurants(Locale locale) {
-        List<RestaurantDTO> testRestaurantsDTOList = new ArrayList<RestaurantDTO>();
+    private RestaurantListDTO createTestRestaurants(Locale locale) {
+        List<RestaurantListItemDTO> testRestaurantsDTOList = new ArrayList<RestaurantListItemDTO>();
         String testDescription1 = "testDescription1" + locale.getLanguage().toString();
         String testDescription2 = "testDescription2" + locale.getLanguage().toString();
         testRestaurantsDTOList.add(createTestRestaurantDTO("testId1", "testName1", testDescription1, "testFileName1"));
         testRestaurantsDTOList.add(createTestRestaurantDTO("testId2", "testName2", testDescription2, "testFileName2"));
-        return new RestaurantsDTO(testRestaurantsDTOList);
+        return new RestaurantListDTO(testRestaurantsDTOList);
     }
 
     /**

@@ -13,29 +13,29 @@ import java.util.Locale;
  * Created by antoniosilvadelpozo on 06/04/14.
  */
 @XmlRootElement(name="restaurants")
-public class RestaurantsDTO {
+public class RestaurantListDTO {
 
-    protected List<RestaurantDTO> restaurantList;
+    protected List<RestaurantListItemDTO> restaurantList;
 
-    public RestaurantsDTO(){}
+    public RestaurantListDTO(){}
 
-    public RestaurantsDTO(List<RestaurantDTO> restaurantList) {
+    public RestaurantListDTO(List<RestaurantListItemDTO> restaurantList) {
         this.restaurantList = restaurantList;
     }
 
-    public RestaurantsDTO(Restaurants restaurants, Locale locale) {
-        this.restaurantList = new ArrayList<RestaurantDTO>();
+    public RestaurantListDTO(Restaurants restaurants, Locale locale) {
+        this.restaurantList = new ArrayList<RestaurantListItemDTO>();
         for(Restaurant restaurant: restaurants.getRestaurantList()) {
-            this.restaurantList.add(new RestaurantDTO(restaurant, locale));
+            this.restaurantList.add(new RestaurantListItemDTO(restaurant, locale));
         }
     }
 
-    public List<RestaurantDTO> getRestaurantList() {
+    public List<RestaurantListItemDTO> getRestaurantList() {
         return restaurantList;
     }
 
     @XmlElement(name = "restaurant")
-    public void setRestaurantList(List<RestaurantDTO> restaurantList) {
+    public void setRestaurantList(List<RestaurantListItemDTO> restaurantList) {
         this.restaurantList = restaurantList;
     }
 }

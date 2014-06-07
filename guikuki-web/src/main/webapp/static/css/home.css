@@ -12,6 +12,31 @@
   padding: 10px;
   margin: auto; }
 
+.button {
+  color: #c0b698;
+  background-color: #310212;
+  border-radius: 15px;
+  border: solid medium white;
+  text-decoration: none;
+  font-family: Existence-Light, Verdana, sans-serif;
+  font-size: 150%;
+  font-weight: bolder;
+  padding: 2.5%;
+  transition: all 0.2s ease-in-out; }
+  .button:hover {
+    color: #310212;
+    background-color: #ebe3ca;
+    transition: all 0.2s ease-in-out; }
+  .button:focus {
+    color: #310212;
+    background-color: #ebe3ca;
+    transition: all 0.2s ease-in-out; }
+
+.rightBottom {
+  position: absolute;
+  right: 10%;
+  bottom: 10%; }
+
 body {
   font-family: Georgia, Verdana, sans-serif;
   font-size: small;
@@ -35,6 +60,31 @@ ul {
   padding: 10px;
   margin: auto; }
 
+.button {
+  color: #c0b698;
+  background-color: #310212;
+  border-radius: 15px;
+  border: solid medium white;
+  text-decoration: none;
+  font-family: Existence-Light, Verdana, sans-serif;
+  font-size: 150%;
+  font-weight: bolder;
+  padding: 2.5%;
+  transition: all 0.2s ease-in-out; }
+  .button:hover {
+    color: #310212;
+    background-color: #ebe3ca;
+    transition: all 0.2s ease-in-out; }
+  .button:focus {
+    color: #310212;
+    background-color: #ebe3ca;
+    transition: all 0.2s ease-in-out; }
+
+.rightBottom {
+  position: absolute;
+  right: 10%;
+  bottom: 10%; }
+
 #social {
   background-color: white;
   height: 20px; }
@@ -49,6 +99,31 @@ ul {
   padding: 10px;
   margin: auto; }
 
+.button {
+  color: #c0b698;
+  background-color: #310212;
+  border-radius: 15px;
+  border: solid medium white;
+  text-decoration: none;
+  font-family: Existence-Light, Verdana, sans-serif;
+  font-size: 150%;
+  font-weight: bolder;
+  padding: 2.5%;
+  transition: all 0.2s ease-in-out; }
+  .button:hover {
+    color: #310212;
+    background-color: #ebe3ca;
+    transition: all 0.2s ease-in-out; }
+  .button:focus {
+    color: #310212;
+    background-color: #ebe3ca;
+    transition: all 0.2s ease-in-out; }
+
+.rightBottom {
+  position: absolute;
+  right: 10%;
+  bottom: 10%; }
+
 #header {
   color: #6e9a81;
   font-family: Capsuula, Verdana, sans-serif;
@@ -62,26 +137,52 @@ ul {
   font-size: 25%;
   text-align: right; }
 
-#headerNavigation ul li a:link, #headerNavigation ul li a:visited {
-  color: #6e9a81; }
-
-#headerNavigation ul li a:hover, #headerNavigation ul li a:focus {
-  color: #310212;
-  background-color: #6e9a81;
-  transition: all .5s ease-in-out; }
-
 #headerNavigation ul li {
   display: inline; }
   #headerNavigation ul li a {
+    color: #6e9a81;
     padding: 5px 10px 5px 10px;
     border-radius: 5px;
     text-decoration: none;
-    transition: all .5s ease-in-out; }
+    transition: all 0.5s ease-in-out; }
+    #headerNavigation ul li a:hover {
+      color: #310212;
+      background-color: #6e9a81;
+      transition: all 0.5s ease-in-out; }
+    #headerNavigation ul li a:focus {
+      color: #310212;
+      background-color: #6e9a81;
+      transition: all 0.5s ease-in-out; }
 
 #content, #social, #headerContent {
   width: 1000px;
   padding: 10px;
   margin: auto; }
+
+.button {
+  color: #c0b698;
+  background-color: #310212;
+  border-radius: 15px;
+  border: solid medium white;
+  text-decoration: none;
+  font-family: Existence-Light, Verdana, sans-serif;
+  font-size: 150%;
+  font-weight: bolder;
+  padding: 2.5%;
+  transition: all 0.2s ease-in-out; }
+  .button:hover {
+    color: #310212;
+    background-color: #ebe3ca;
+    transition: all 0.2s ease-in-out; }
+  .button:focus {
+    color: #310212;
+    background-color: #ebe3ca;
+    transition: all 0.2s ease-in-out; }
+
+.rightBottom {
+  position: absolute;
+  right: 10%;
+  bottom: 10%; }
 
 footer {
   color: #6e9a81;
@@ -138,6 +239,7 @@ footer {
     /* Opera, Chrome, and Safari */ }
   .contentRestaurant .descriptionRestaurant {
     display: table-cell;
+    position: relative;
     padding: 30px;
     vertical-align: top;
     border-radius: 0px 20px 20px 0px;

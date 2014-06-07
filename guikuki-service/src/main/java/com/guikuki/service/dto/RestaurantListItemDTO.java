@@ -18,7 +18,7 @@ import java.util.Locale;
  */
 @XmlRootElement(name = "restaurant")
 @XmlType(propOrder = {"id", "name", "description", "pictures"})
-public class RestaurantDTO {
+public class RestaurantListItemDTO {
 
     private static final Locale DEFAULT_LOCALE = new Locale("es", "ES");
 
@@ -27,16 +27,16 @@ public class RestaurantDTO {
 	private String description;
 	private Pictures pictures;
 
-    public RestaurantDTO(){}
+    public RestaurantListItemDTO(){}
 
-    public RestaurantDTO(String id, String name, String description, Pictures pictures) {
+    public RestaurantListItemDTO(String id, String name, String description, Pictures pictures) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.pictures = pictures;
     }
 
-    public RestaurantDTO(Restaurant restaurant, Locale locale) {
+    public RestaurantListItemDTO(Restaurant restaurant, Locale locale) {
         this.id = restaurant.getId();
         this.name = restaurant.getName();
         this.description = (restaurant.getDescription().get(locale.getLanguage().toString()) == null) ?
@@ -85,7 +85,7 @@ public class RestaurantDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        RestaurantDTO that = (RestaurantDTO) o;
+        RestaurantListItemDTO that = (RestaurantListItemDTO) o;
 
         if (!description.equals(that.description)) return false;
         if (!id.equals(that.id)) return false;

@@ -36,3 +36,36 @@ $context: 1000px;
   line-height: 0.8;
   text-shadow: 2px 2px 0 $firstShadowColor, 5px 5px 0 $secondShadowColor;
 }
+
+@mixin fade($color, $backgroundColor, $speed) {
+  transition: all $speed ease-in-out;
+  &:hover {
+    color: $color;
+    background-color: $backgroundColor;
+    transition: all $speed ease-in-out;
+  }
+  &:focus {
+    color: $color;
+    background-color: $backgroundColor;
+    transition: all $speed ease-in-out;
+  }
+}
+
+.button {
+  color: $lightBrown;
+  background-color: $darkBrown;
+  border-radius: 15px;
+  border: solid medium $white;
+  text-decoration: none;
+  @include completeFont(Existence-Light);
+  font-size: 150%;
+  font-weight: bolder;
+  padding: 2.5%;
+  @include fade($darkBrown, $lighterBrown, .2s);
+}
+
+.rightBottom {
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+}

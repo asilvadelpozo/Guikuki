@@ -1,8 +1,8 @@
 package com.guikuki.service;
 
 import com.guikuki.persistence.exception.RestaurantNotFoundException;
-import com.guikuki.service.dto.RestaurantDTO;
-import com.guikuki.service.dto.RestaurantsDTO;
+import com.guikuki.service.dto.RestaurantListItemDTO;
+import com.guikuki.service.dto.RestaurantListDTO;
 
 import java.util.Locale;
 
@@ -17,7 +17,7 @@ public interface RestaurantService {
      * @param locale
      * @return Restaurants: List of restaurants.
      */
-    public RestaurantsDTO findAllRestaurants(Locale locale);
+    public RestaurantListDTO findAllRestaurants(Locale locale);
 
     /**
      * Returns an specific restaurant given its id.
@@ -26,6 +26,6 @@ public interface RestaurantService {
      * @return Restaurant
      * @throws RestaurantNotFoundException
      */
-    public RestaurantDTO findRestaurantById(String id, Locale locale) throws RestaurantNotFoundException;
+    public RestaurantListItemDTO findRestaurantById(String id, Locale locale) throws RestaurantNotFoundException;
 
 }

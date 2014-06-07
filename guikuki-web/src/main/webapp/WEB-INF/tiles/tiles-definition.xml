@@ -20,4 +20,9 @@
         <put-attribute name="content" value="/WEB-INF/jsp/restaurants.jsp"/>
     </definition>
 
+    <definition name="restaurantDetail" extends="defaultTemplate">
+        <put-attribute name="styles" value="/static/css/restaurants.css" />
+        <put-attribute name="content" value="/WEB-INF/jsp/restaurantDetail.jsp"/>
+    </definition>
+
 </tiles-definitions>

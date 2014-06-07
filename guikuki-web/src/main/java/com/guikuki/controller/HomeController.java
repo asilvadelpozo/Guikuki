@@ -1,7 +1,7 @@
 package com.guikuki.controller;
 
 import com.guikuki.service.RestaurantService;
-import com.guikuki.service.dto.RestaurantsDTO;
+import com.guikuki.service.dto.RestaurantListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class HomeController {
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView showHomePage(Locale locale) {
         ModelAndView model = new ModelAndView("home");
-        RestaurantsDTO restaurantsDTO = restaurantService.findAllRestaurants(locale);
+        RestaurantListDTO restaurantsDTO = restaurantService.findAllRestaurants(locale);
         model.addObject("restaurants", restaurantsDTO);
         return model;
     }

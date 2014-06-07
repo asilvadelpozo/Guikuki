@@ -21,34 +21,13 @@
   text-align: right;
 }
 
-%linkAndVisitedPlaceHolder {
-  color: $green;
-}
-
-%hoverAndFocusPlaceHolder {
-  color: $darkBrown;
-  background-color: $green;
-  transition: all .5s ease-in-out;
-}
-
 #headerNavigation ul li {
   display: inline;
   a {
+      color: $green;
       padding: 5px 10px 5px 10px;
       border-radius: 5px;
       text-decoration:none;
-      transition: all .5s ease-in-out;
-      &:link {
-          @extend %linkAndVisitedPlaceHolder;
-      }
-      &:visited {
-          @extend %linkAndVisitedPlaceHolder;
-      }
-      &:hover {
-          @extend %hoverAndFocusPlaceHolder;
-      }
-      &:focus {
-        @extend %hoverAndFocusPlaceHolder;
-      }
+      @include fade($darkBrown, $green, .5s);
   }
 }

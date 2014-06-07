@@ -1,7 +1,7 @@
 package com.guikuki.controller;
 
 import com.guikuki.service.RestaurantService;
-import com.guikuki.service.dto.RestaurantsDTO;
+import com.guikuki.service.dto.RestaurantListDTO;
 import com.guikuki.util.UtilTests;
 import org.junit.After;
 import org.junit.Before;
@@ -60,7 +60,7 @@ public class HomeControllerTest {
 
     @Test
     public void show_home_page_should_return_html_view() throws Exception {
-        RestaurantsDTO mockRestaurantList = mock(RestaurantsDTO.class);
+        RestaurantListDTO mockRestaurantList = mock(RestaurantListDTO.class);
         when(restaurantService.findAllRestaurants(ES)).thenReturn(mockRestaurantList);
 
         homeControllerMockMvc.perform(get("/home"))
