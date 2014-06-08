@@ -39,10 +39,19 @@
   }
 }
 
+%mainDataArea {
+  display: table-cell;
+  position: relative;
+  padding: 30px;
+  vertical-align: top;
+  border-radius: 0px 20px 20px 0px;
+  color: $darkBrown;
+}
+
 .contentRestaurant {
   display: table-row;
   background-color: $lightBrown;
-  img {
+  .mainPicture {
     display: table-cell;
     margin: 40px;
     vertical-align: top;
@@ -50,12 +59,16 @@
     @include rotate(-7deg);
   }
   .descriptionRestaurant {
-    display: table-cell;
-    padding: 30px;
-    vertical-align: top;
-    border-radius: 0px 20px 20px 0px;
-    color: $darkBrown;
+    @extend %mainDataArea;
     p {
+      &:first-letter{
+        @include formatFirstLetter($lighterBrown, $darkBrown);
+      }
+    }
+  }
+  .dataRestaurant {
+    @extend %mainDataArea;
+    .description {
       &:first-letter{
         @include formatFirstLetter($lighterBrown, $darkBrown);
       }

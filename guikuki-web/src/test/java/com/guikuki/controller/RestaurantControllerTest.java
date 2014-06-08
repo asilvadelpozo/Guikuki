@@ -4,6 +4,7 @@ import com.guikuki.persistence.exception.RestaurantNotFoundException;
 import com.guikuki.persistence.model.Picture;
 import com.guikuki.persistence.model.Pictures;
 import com.guikuki.service.RestaurantService;
+import com.guikuki.service.dto.RestaurantDetailDTO;
 import com.guikuki.service.dto.RestaurantListItemDTO;
 import com.guikuki.service.dto.RestaurantListDTO;
 import com.guikuki.util.UtilTests;
@@ -141,10 +142,13 @@ public class RestaurantControllerTest {
 
     @Test
     public void find_restaurant_by_id_should_return_html_view_if_no_extension_defined() throws Exception {
-        RestaurantListItemDTO mockRestaurant = createTestRestaurantDTO("id", "name", "description", "filename");
+        List<String> categories = new ArrayList<String>();
+        categories.add("category1");
+        categories.add("category2");
+        RestaurantDetailDTO mockRestaurant = createTestRestaurantDetailDTO("id", "name", "description", categories, "zone", "address", "telephone", "filename");
         when(restaurantService.findRestaurantById("id", ES)).thenReturn(mockRestaurant);
 
-        RestaurantListItemDTO expectedRestaurant = createTestRestaurantDTO("id", "name", "description", "filename");
+        RestaurantDetailDTO expectedRestaurant = createTestRestaurantDetailDTO("id", "name", "description", categories, "zone", "address", "telephone", "filename");
 
         restaurantControllerMockMvc.perform(get("/restaurants/{id}", "id").locale(ES))
             .andExpect(status().isOk())
@@ -155,7 +159,10 @@ public class RestaurantControllerTest {
 
     @Test
     public void find_restaurant_by_id_should_return_json_view_if_json_extension_defined() throws Exception {
-        RestaurantListItemDTO mockRestaurant = createTestRestaurantDTO("id", "name", "description", "filename");
+        List<String> categories = new ArrayList<String>();
+        categories.add("category1");
+        categories.add("category2");
+        RestaurantDetailDTO mockRestaurant = createTestRestaurantDetailDTO("id", "name", "description", categories, "zone", "address", "telephone", "filename");
         when(restaurantService.findRestaurantById("id", ES)).thenReturn(mockRestaurant);
 
         restaurantControllerMockMvc.perform(get("/restaurants/{id}.json", "id").locale(ES))
@@ -163,12 +170,20 @@ public class RestaurantControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.restaurant.id", is("id")))
                 .andExpect(jsonPath("$.restaurant.name", is("name")))
-                .andExpect(jsonPath("$.restaurant.description", is("description")));
+                .andExpect(jsonPath("$.restaurant.description", is("description")))
+                .andExpect(jsonPath("$.restaurant.categories[0]", is("category1")))
+                .andExpect(jsonPath("$.restaurant.categories[1]", is("category2")))
+                .andExpect(jsonPath("$.restaurant.zone", is("zone")))
+                .andExpect(jsonPath("$.restaurant.address", is("address")))
+                .andExpect(jsonPath("$.restaurant.telephone", is("telephone")));
     }
 
     @Test
     public void find_restaurant_by_id_should_return_xml_view_if_xml_extension_defined() throws Exception {
-        RestaurantListItemDTO mockRestaurant = createTestRestaurantDTO("id", "name", "description", "filename");
+        List<String> categories = new ArrayList<String>();
+        categories.add("category1");
+        categories.add("category2");
+        RestaurantDetailDTO mockRestaurant = createTestRestaurantDetailDTO("id", "name", "description", categories, "zone", "address", "telephone", "filename");
         when(restaurantService.findRestaurantById("id", ES)).thenReturn(mockRestaurant);
 
         String expectedXML = createExpectedXMLStringForFindRestaurantById();
@@ -185,6 +200,13 @@ public class RestaurantControllerTest {
                         "<id>id</id>" +
                         "<name>name</name>" +
                         "<description>description</description>" +
+                        "<categories>" +
+                            "<category>category1</category>" +
+                            "<category>category2</category>" +
+                        "</categories>" +
+                        "<zone>zone</zone>" +
+                        "<address>address</address>" +
+                        "<telephone>telephone</telephone>" +
                         "<pictures>"+
                             "<main>" +
                                 "<filename>filename</filename>" +
@@ -203,13 +225,24 @@ public class RestaurantControllerTest {
     }
 
     /**
-     * Creates a RestaurantDTO instance for testing.
-     * @return RestaurantDTO.
+     * Creates a RestaurantListItemDTO instance for testing.
+     * @return RestaurantListItemDTO.
      */
-    private RestaurantListItemDTO createTestRestaurantDTO(String testId, String testName, String testDescription, String testFileName) {
+    private RestaurantListItemDTO createTestRestaurantListItemDTO(String testId, String testName, String testDescription, String testFileName) {
         Picture testPicture = new Picture(testFileName);
         Pictures testPictures = new Pictures(testPicture);
         return new RestaurantListItemDTO(testId, testName, testDescription, testPictures);
+    }
+
+    /**
+     * Creates a RestaurantDetailDTO instance for testing.
+     * @return RestaurantDetailDTO.
+     */
+    private RestaurantDetailDTO createTestRestaurantDetailDTO(String testId, String testName, String testDescription,
+            List<String> testCategories, String testZone, String testAddress, String testTelephone, String testFileName) {
+        Picture testPicture = new Picture(testFileName);
+        Pictures testPictures = new Pictures(testPicture);
+        return new RestaurantDetailDTO(testId, testName, testDescription, testCategories, testZone, testAddress, testTelephone, testPictures);
     }
 
     /**
@@ -220,8 +253,8 @@ public class RestaurantControllerTest {
         List<RestaurantListItemDTO> testRestaurantsDTOList = new ArrayList<RestaurantListItemDTO>();
         String testDescription1 = "testDescription1" + locale.getLanguage().toString();
         String testDescription2 = "testDescription2" + locale.getLanguage().toString();
-        testRestaurantsDTOList.add(createTestRestaurantDTO("testId1", "testName1", testDescription1, "testFileName1"));
-        testRestaurantsDTOList.add(createTestRestaurantDTO("testId2", "testName2", testDescription2, "testFileName2"));
+        testRestaurantsDTOList.add(createTestRestaurantListItemDTO("testId1", "testName1", testDescription1, "testFileName1"));
+        testRestaurantsDTOList.add(createTestRestaurantListItemDTO("testId2", "testName2", testDescription2, "testFileName2"));
         return new RestaurantListDTO(testRestaurantsDTOList);
     }
 

@@ -6,6 +6,10 @@
             "es": "Una decoración cálida y con esos toques cool que tanto gustan: buen ambiente, mesas corridas en las que sentarse junto a desconocidos, algunas piezas de mobiliario vintage y una decoración a medio camino entre lo rústico y lo industrial. El Tomate en cualquiera de sus variantes es un acierto.",
             "en": "A warm decoration with these cool touches that you like so much: great atmosphere, shared tables to sit next to strangers, some pieces of vintage furniture and a decoration halfway between rustic and industrial. The Tomate in all its variants is a hit."
         },
+        "categories": ["canas", "tapas"],
+        "zone": "Cólon",
+        "address": "Fernando el Santo 26 28046 Madrid",
+        "telephone": "917 02 38 70",
         "pictures": {
             "main": {
                 "filename": "bar_tomate.jpg"
@@ -19,6 +23,10 @@
             "es": "Tras la experiencia T.a.r.t.a.n. el chef Javier Muñoz-Calero apuesta por una neotasca en la que ofrece una visión renovada y muy personal de las recetas para picar de toda la vida.",
             "en": "After the T.a.r.t.a.n. experience, Chef Javier Muñoz-Calero bet for a neotasca in which he offers a new and very personal vision of the traditional snacks´ recipes."
         },
+        "categories": ["canas", "tapas"],
+        "zone": "Cuzco",
+        "address": "Juan Ramón Jiménez 22 28036 Madrid",
+        "telephone": "913 59 14 40",
         "pictures": {
             "main": {
                 "filename": "munoca.jpg"
@@ -32,6 +40,10 @@
             "es": "En un ambiente marcado por un diseño moderno y por una exquisita iluminación, he aquí una grata opción en materia de pinchos, tapas, cazuelitas, hamburguesas, ensaladas y postres en pleno barrio de Salamanca.",
             "en": "In an environment marked by a modern design and exquisite lighting, here is a nice option on pinchos, tapas, casseroles, burgers, salads and desserts in the Salamanca neighborhood."
         },
+        "categories": ["tapas"],
+        "zone": "Velázquez",
+        "address": "Velázquez 40 28001 Madrid",
+        "telephone": "914 31 34 31",
         "pictures": {
             "main": {
                 "filename": "morao.jpg"

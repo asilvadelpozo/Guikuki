@@ -15,7 +15,7 @@
         <p></p>
     </header>
     <section class="contentRestaurant">
-        <img src="<c:url value="/photo/${param.id}/content" />" alt="${param.name}">
+        <img class="mainPicture" src="<c:url value="/photo/${param.id}/content" />" alt="${param.name}">
         <div class="descriptionRestaurant">
             <p>${param.description}</p>
             <a href="restaurants/${param.id}" class="button rightBottom"><spring:message code="restaurant.list.item.detail.button" /></a>

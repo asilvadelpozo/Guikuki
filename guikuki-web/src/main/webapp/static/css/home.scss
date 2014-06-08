@@ -42,7 +42,7 @@
 .contentRestaurant {
     display: table-row;
     background-color: $lightBrown;
-    img {
+    .mainPicture {
         display: table-cell;
         margin: 40px;
         vertical-align: top;

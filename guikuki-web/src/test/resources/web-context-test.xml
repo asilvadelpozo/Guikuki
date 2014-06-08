@@ -37,6 +37,7 @@
             <list>
                 <value>com.guikuki.service.dto.RestaurantListDTO</value>
                 <value>com.guikuki.service.dto.RestaurantListItemDTO</value>
+                <value>com.guikuki.service.dto.RestaurantDetailDTO</value>
                 <value>com.guikuki.persistence.model.Pictures</value>
                 <value>com.guikuki.persistence.model.Picture</value>
             </list>

@@ -2,6 +2,7 @@ package com.guikuki.controller;
 
 import com.guikuki.persistence.exception.RestaurantNotFoundException;
 import com.guikuki.service.RestaurantService;
+import com.guikuki.service.dto.RestaurantDetailDTO;
 import com.guikuki.service.dto.RestaurantListItemDTO;
 import com.guikuki.service.dto.RestaurantListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class RestaurantController {
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView findAllRestaurants(Locale locale) {
         ModelAndView model = new ModelAndView("restaurants");
-        RestaurantListDTO restaurantsDTO = restaurantService.findAllRestaurants(locale);
-        model.addObject("restaurants", restaurantsDTO);
+        RestaurantListDTO restaurantListDTO = restaurantService.findAllRestaurants(locale);
+        model.addObject("restaurants", restaurantListDTO);
         return model;
     }
 
@@ -38,8 +39,8 @@ public class RestaurantController {
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView findRestaurantById(@PathVariable String id, Locale locale) throws RestaurantNotFoundException {
         ModelAndView model = new ModelAndView("restaurantDetail");
-        RestaurantListItemDTO restaurantDTO = restaurantService.findRestaurantById(id, locale);
-        model.addObject("restaurant", restaurantDTO);
+        RestaurantDetailDTO restaurantDetailDTO = restaurantService.findRestaurantById(id, locale);
+        model.addObject("restaurant", restaurantDetailDTO);
         return model;
     }
 

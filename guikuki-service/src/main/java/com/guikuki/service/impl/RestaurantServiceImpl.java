@@ -3,6 +3,7 @@ package com.guikuki.service.impl;
 import com.guikuki.persistence.dao.RestaurantDAO;
 import com.guikuki.persistence.exception.RestaurantNotFoundException;
 import com.guikuki.service.RestaurantService;
+import com.guikuki.service.dto.RestaurantDetailDTO;
 import com.guikuki.service.dto.RestaurantListItemDTO;
 import com.guikuki.service.dto.RestaurantListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,8 @@ public class RestaurantServiceImpl implements RestaurantService {
      *
      */
     @Override
-    public RestaurantListItemDTO findRestaurantById(String id, Locale locale) throws RestaurantNotFoundException {
-        return new RestaurantListItemDTO(restaurantDAO.findRestaurantById(id), locale);
+    public RestaurantDetailDTO findRestaurantById(String id, Locale locale) throws RestaurantNotFoundException {
+        return new RestaurantDetailDTO(restaurantDAO.findRestaurantById(id), locale);
     }
 
 

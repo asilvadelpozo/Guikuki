@@ -69,7 +69,11 @@ public class RestaurantDAOImplTest {
         HashMap<String, String> testDescription1 = new HashMap<String, String>();
         testDescription1.put("es", "testDescription1Es");
         testDescription1.put("en", "testDescription1En");
-        Restaurant expectedRestaurant = createTestRestaurant("testId1", "testName1", testDescription1, "testFileName1");
+        List<String> testCategories1 = new ArrayList<String>();
+        testCategories1.add("testCategory1");
+        testCategories1.add("testCategory2");
+        Restaurant expectedRestaurant = (createTestRestaurant("testId1", "testName1", testDescription1, testCategories1,
+                "testZone1", "testAddress1", "testTelephone1", "testFileName1"));
         assertThat(actualRestaurant, equalTo(expectedRestaurant));
     }
 
@@ -95,10 +99,11 @@ public class RestaurantDAOImplTest {
      * Creates a Restaurant instance for testing.
      * @return Restaurant.
      */
-    private Restaurant createTestRestaurant(String testId, String testName, HashMap<String, String> testDescription, String testFileName) {
+    private Restaurant createTestRestaurant(String testId, String testName, HashMap<String, String> testDescription,
+            List<String> categories, String zone, String address, String telephone, String testFileName) {
         Picture testPicture = new Picture(testFileName);
         Pictures testPictures = new Pictures(testPicture);
-        return new Restaurant(testId, testName, testDescription, testPictures);
+        return new Restaurant(testId, testName, testDescription, categories, zone, address, telephone, testPictures);
     }
 
     /**
@@ -110,11 +115,19 @@ public class RestaurantDAOImplTest {
         HashMap<String, String> testDescription1 = new HashMap<String, String>();
         testDescription1.put("es", "testDescription1Es");
         testDescription1.put("en", "testDescription1En");
+        List<String> testCategories1 = new ArrayList<String>();
+        testCategories1.add("testCategory1");
+        testCategories1.add("testCategory2");
         HashMap<String, String> testDescription2 = new HashMap<String, String>();
         testDescription2.put("es", "testDescription2Es");
         testDescription2.put("en", "testDescription2En");
-        testRestaurants.add(createTestRestaurant("testId1", "testName1", testDescription1, "testFileName1"));
-        testRestaurants.add(createTestRestaurant("testId2", "testName2", testDescription2, "testFileName2"));
+        List<String> testCategories2 = new ArrayList<String>();
+        testCategories2.add("testCategory3");
+        testCategories2.add("testCategory4");
+        testRestaurants.add(createTestRestaurant("testId1", "testName1", testDescription1, testCategories1,
+                "testZone1", "testAddress1", "testTelephone1", "testFileName1"));
+        testRestaurants.add(createTestRestaurant("testId2", "testName2", testDescription2, testCategories2,
+                "testZone2", "testAddress2", "testTelephone2", "testFileName2"));
         return testRestaurants;
     }
 

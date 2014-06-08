@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.Locale;
 
 /**
- * Model object to represent Restaurants from the mongodb collection restaurants
+ * Data Transfer Object (DTO) to represent a Restaurant List Item from the mongodb collection restaurants
  * @author antoniosilvadelpozo
  *
  */
