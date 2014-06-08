@@ -10,7 +10,10 @@
       font-size: 140%;
       text-decoration:none;
       color: $green;
+      padding: 5px;
+      border-radius: 5px;
       @include completeFont(Capsuula);
+      @include fade($white, $green, .2s);
     }
 }
 

@@ -98,7 +98,18 @@ ul {
     font-size: 140%;
     text-decoration: none;
     color: #6e9a81;
-    font-family: Capsuula, Verdana, sans-serif; }
+    padding: 5px;
+    border-radius: 5px;
+    font-family: Capsuula, Verdana, sans-serif;
+    transition: all 0.2s ease-in-out; }
+    #social a:hover {
+      color: white;
+      background-color: #6e9a81;
+      transition: all 0.2s ease-in-out; }
+    #social a:focus {
+      color: white;
+      background-color: #6e9a81;
+      transition: all 0.2s ease-in-out; }
 
 #content, #social, #headerContent {
   width: 1000px;
