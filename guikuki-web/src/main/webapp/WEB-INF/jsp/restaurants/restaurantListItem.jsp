@@ -11,7 +11,7 @@
 
 <article class="restaurant">
     <header class="headerRestaurant">
-        <p class="titleRestaurant">${param.name}</p>
+        <p class="titleRestaurantListItem">${param.name}</p>
         <p></p>
     </header>
     <section class="contentRestaurant">

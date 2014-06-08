@@ -12,7 +12,7 @@
     <ul>
         <c:forEach items="${restaurants.restaurantList}" var="restaurant">
             <li>
-                <jsp:include page="restaurantListItem.jsp">
+                <jsp:include page="restaurants/restaurantListItem.jsp">
                     <jsp:param name="id" value="${restaurant.id}" />
                     <jsp:param name="name" value="${restaurant.name}" />
                     <jsp:param name="description" value="${restaurant.description}" />

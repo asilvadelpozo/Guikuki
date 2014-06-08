@@ -27,7 +27,7 @@
     p {
         display: table-cell;
         @include completeFont(Amatic-Bold);
-        &.titleRestaurant {
+        &.titleRestaurantListItem {
             background-color: $lightBrown;
             color: $darkBrown;
             text-align: center;

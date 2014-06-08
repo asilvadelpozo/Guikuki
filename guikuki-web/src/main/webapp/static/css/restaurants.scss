@@ -5,21 +5,34 @@
 @import "template/header";
 @import "template/footer";
 
+@mixin drawClip($side, $posX, $posY) {
+  background: url("/static/images/clip-#{$side}.png") no-repeat scroll 0 0 transparent;
+  position: absolute;
+  content: '';
+  left: $posX;
+  top: $posY;
+  z-index: 10;
+  width: 100px;
+  height: 80px;
+  display: inline-block;
+}
+
 .restaurant {
   display: table;
   margin: 30px;
   position: relative;
   &:before {
-    background: url("/static/images/clip-left.png") no-repeat scroll 0 0 transparent;
-    position: absolute;
-    content: '';
-    left: -13px;
-    top: 85px;
-    z-index: 10;
-    width: 100px;
-    height: 80px;
-    display: inline-block;
+    @include drawClip(left, -13px, 85px);
   }
+}
+
+%titleRestaurant {
+  background-color: $lightBrown;
+  color: $darkBrown;
+  text-align: center;
+  font-size: 250%;
+  border-radius: 20px 20px 0px 0px;
+  font-weight: bolder;
 }
 
 .headerRestaurant {
@@ -27,14 +40,12 @@
   p {
     display: table-cell;
     @include completeFont(Amatic-Bold);
-    &.titleRestaurant {
-      background-color: $lightBrown;
-      color: $darkBrown;
-      text-align: center;
-      font-size: 250%;
-      border-radius: 20px 20px 0px 0px;
+    &.titleRestaurantListItem {
+      @extend %titleRestaurant;
       padding-top: 20px;
-      font-weight: bolder;
+    }
+    &.titleRestaurantDetail {
+      @extend %titleRestaurant;
     }
   }
 }
@@ -72,6 +83,86 @@
       &:first-letter{
         @include formatFirstLetter($lighterBrown, $darkBrown);
       }
+    }
+  }
+}
+
+.verticalTabs {
+  position: relative;
+  min-height: 700px; /* This part sucks */
+  clear: both;
+  margin: 30px;
+}
+
+.verticalTab {
+  float: left;
+  color: $darkBrown;
+  width: 25%;
+  label {
+    @include completeFont(Amatic-Bold);
+    font-size: 250%;
+    font-weight: bolder;
+    background: $lighterBrown;
+    color: $darkBrown;
+    text-align: center;
+    display: block;
+    border-radius: 20px 20px 0px 0px;
+    padding: 10px 0px;
+    margin: 0px 1px;
+    position: relative;
+    @include fade($darkBrown, lighten($lightBrown, 10%), .2s);
+  }
+  [type=radio] {
+    display: none;
+  }
+  .firstVerticalLabel {
+    margin: 0px 1px 0px 0px;
+  }
+  .lastVerticalLabel {
+    margin: 0px 0px 0px 1px;
+  }
+}
+
+.tabContent {
+  position: absolute;
+  background: $lightBrown;
+  top: 56px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  border-radius: 0px 0px 20px 20px;
+}
+
+[type=radio]:checked ~ label {
+  background: $lightBrown;
+  z-index: 2;
+}
+
+[type=radio]:checked ~ label ~ .tabContent {
+  z-index: 1;
+}
+
+.general {
+  display: table-row;
+  &:before {
+    @include drawClip(left, -13px, 38px);
+  }
+}
+
+.pictureSection {
+  @extend %mainDataArea;
+  .mainPicture {
+    @include giveBorderToPicture(20px);
+    @include rotate(-7deg);
+  }
+}
+
+.dataSection {
+  @extend %mainDataArea;
+  .description {
+    &:first-letter{
+      @include formatFirstLetter($lighterBrown, $darkBrown);
     }
   }
 }

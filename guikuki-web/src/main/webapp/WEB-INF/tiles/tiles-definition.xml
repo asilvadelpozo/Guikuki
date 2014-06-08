@@ -17,12 +17,12 @@
 
     <definition name="restaurants" extends="defaultTemplate">
         <put-attribute name="styles" value="/static/css/restaurants.css" />
-        <put-attribute name="content" value="/WEB-INF/jsp/restaurants.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/restaurants/restaurants.jsp"/>
     </definition>
 
     <definition name="restaurantDetail" extends="defaultTemplate">
         <put-attribute name="styles" value="/static/css/restaurants.css" />
-        <put-attribute name="content" value="/WEB-INF/jsp/restaurantDetail.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/restaurants/detail/restaurantDetail.jsp"/>
     </definition>
 
 </tiles-definitions>

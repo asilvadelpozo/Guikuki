@@ -220,21 +220,23 @@ footer {
     height: 80px;
     display: inline-block; }
 
+.headerRestaurant p.titleRestaurantListItem, .headerRestaurant p.titleRestaurantDetail {
+  background-color: #c0b698;
+  color: #310212;
+  text-align: center;
+  font-size: 250%;
+  border-radius: 20px 20px 0px 0px;
+  font-weight: bolder; }
+
 .headerRestaurant {
   display: table-row; }
   .headerRestaurant p {
     display: table-cell;
     font-family: Amatic-Bold, Verdana, sans-serif; }
-    .headerRestaurant p.titleRestaurant {
-      background-color: #c0b698;
-      color: #310212;
-      text-align: center;
-      font-size: 250%;
-      border-radius: 20px 20px 0px 0px;
-      padding-top: 20px;
-      font-weight: bolder; }
+    .headerRestaurant p.titleRestaurantListItem {
+      padding-top: 20px; }
 
-.contentRestaurant .descriptionRestaurant, .contentRestaurant .dataRestaurant {
+.contentRestaurant .descriptionRestaurant, .contentRestaurant .dataRestaurant, .pictureSection, .dataSection {
   display: table-cell;
   position: relative;
   padding: 30px;
@@ -273,3 +275,91 @@ footer {
     padding: 0px;
     line-height: 0.8;
     text-shadow: 2px 2px 0 #ebe3ca, 5px 5px 0 #310212; }
+
+.verticalTabs {
+  position: relative;
+  min-height: 700px;
+  /* This part sucks */
+  clear: both;
+  margin: 30px; }
+
+.verticalTab {
+  float: left;
+  color: #310212;
+  width: 25%; }
+  .verticalTab label {
+    font-family: Amatic-Bold, Verdana, sans-serif;
+    font-size: 250%;
+    font-weight: bolder;
+    background: #ebe3ca;
+    color: #310212;
+    text-align: center;
+    display: block;
+    border-radius: 20px 20px 0px 0px;
+    padding: 10px 0px;
+    margin: 0px 1px;
+    position: relative;
+    transition: all 0.2s ease-in-out; }
+    .verticalTab label:hover {
+      color: #310212;
+      background-color: #d3ccb8;
+      transition: all 0.2s ease-in-out; }
+    .verticalTab label:focus {
+      color: #310212;
+      background-color: #d3ccb8;
+      transition: all 0.2s ease-in-out; }
+  .verticalTab [type=radio] {
+    display: none; }
+  .verticalTab .firstVerticalLabel {
+    margin: 0px 1px 0px 0px; }
+  .verticalTab .lastVerticalLabel {
+    margin: 0px 0px 0px 1px; }
+
+.tabContent {
+  position: absolute;
+  background: #c0b698;
+  top: 56px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  border-radius: 0px 0px 20px 20px; }
+
+[type=radio]:checked ~ label {
+  background: #c0b698;
+  z-index: 2; }
+
+[type=radio]:checked ~ label ~ .tabContent {
+  z-index: 1; }
+
+.general {
+  display: table-row; }
+  .general:before {
+    background: url("/static/images/clip-left.png") no-repeat scroll 0 0 transparent;
+    position: absolute;
+    content: '';
+    left: -13px;
+    top: 38px;
+    z-index: 10;
+    width: 100px;
+    height: 80px;
+    display: inline-block; }
+
+.pictureSection .mainPicture {
+  border-width: 20px;
+  border-color: white;
+  border-style: solid;
+  transform: rotate(-7deg);
+  -ms-transform: rotate(-7deg);
+  /* IE 9 */
+  -webkit-transform: rotate(-7deg);
+  /* Opera, Chrome, and Safari */ }
+
+.dataSection .description:first-letter {
+  font-size: 500%;
+  font-weight: bolder;
+  float: left;
+  margin: 0px 5px 0px 0px;
+  padding: 0px;
+  line-height: 0.8;
+  text-shadow: 2px 2px 0 #ebe3ca, 5px 5px 0 #310212; }

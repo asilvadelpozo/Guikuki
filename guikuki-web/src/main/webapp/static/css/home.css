@@ -225,7 +225,7 @@ footer {
   .headerRestaurant p {
     display: table-cell;
     font-family: Amatic-Bold, Verdana, sans-serif; }
-    .headerRestaurant p.titleRestaurant {
+    .headerRestaurant p.titleRestaurantListItem {
       background-color: #c0b698;
       color: #310212;
       text-align: center;
