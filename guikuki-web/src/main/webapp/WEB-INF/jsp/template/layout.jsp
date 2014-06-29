@@ -14,6 +14,7 @@
         <meta charset="UTF-8">
         <title>Guikuki</title>
         <link rel="stylesheet" type="text/css" href="<tiles:getAsString name='styles' />">
+        <script src="/static/js/angular.js"></script>
     </head>
     <body>
         <tiles:insertAttribute name="social" />

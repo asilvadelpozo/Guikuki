@@ -46,6 +46,8 @@
     }
     &.titleRestaurantDetail {
       @extend %titleRestaurant;
+      font-size: 500%;
+      padding-bottom: 20px;
     }
   }
 }
@@ -87,66 +89,58 @@
   }
 }
 
-.verticalTabs {
-  position: relative;
-  min-height: 700px; /* This part sucks */
-  clear: both;
+.restaurantDetail {
   margin: 30px;
 }
 
-.verticalTab {
-  float: left;
+.tabSet {
+  display: table;
   color: $darkBrown;
-  width: 25%;
-  label {
-    @include completeFont(Amatic-Bold);
-    font-size: 250%;
-    font-weight: bolder;
-    background: $lighterBrown;
-    color: $darkBrown;
-    text-align: center;
-    display: block;
-    border-radius: 20px 20px 0px 0px;
-    padding: 10px 0px;
-    margin: 0px 1px;
-    position: relative;
-    @include fade($darkBrown, lighten($lightBrown, 10%), .2s);
-  }
-  [type=radio] {
-    display: none;
-  }
-  .firstVerticalLabel {
-    margin: 0px 1px 0px 0px;
-  }
-  .lastVerticalLabel {
-    margin: 0px 0px 0px 1px;
+  width: 100%;
+  ul{
+    display: table-row;
+    .tab {
+      display: table-cell;
+      width: 25%;
+      @include completeFont(Amatic-Bold);
+      font-size: 250%;
+      font-weight: bolder;
+      background: $lighterBrown;
+      text-align: center;
+      border-radius: 20px 20px 0px 0px;
+      padding: 10px 0px;
+      border-right: 1px solid white;
+      border-left: 1px solid white;
+      @include fade($darkBrown, lighten($lightBrown, 10%), .2s);
+      a {
+        text-decoration:none;
+        color: $darkBrown;
+      }
+    }
+    .first {
+      border-left: 0px;
+    }
+    .last {
+      border-right: 0px;
+    }
+    .selected {
+      background: $lightBrown;
+      // this disables hover effect because we are fading from one color to the same.
+      @include fade($lightBrown, $lightBrown, .2s);
+    }
   }
 }
 
 .tabContent {
-  position: absolute;
   background: $lightBrown;
-  top: 56px;
-  left: 0;
-  right: 0;
-  bottom: 0;
   padding: 20px;
   border-radius: 0px 0px 20px 20px;
-}
-
-[type=radio]:checked ~ label {
-  background: $lightBrown;
-  z-index: 2;
-}
-
-[type=radio]:checked ~ label ~ .tabContent {
-  z-index: 1;
 }
 
 .general {
   display: table-row;
   &:before {
-    @include drawClip(left, -13px, 38px);
+    @include drawClip(left, 237px, 332px);
   }
 }
 

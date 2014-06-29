@@ -6,66 +6,40 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-    <div class="verticalTabs">
+    <div class="restaurantDetail" ng-app="tabsApp" ng-controller="tabsController as tabsCtrl" ng-init="selectTab('general')">
+        <div class="tabSet">
+            <ul>
+                <li class="tab first" ng-class="{selected: getSelectedTab() == 'general'}">
+                    <a href="" ng-click="selectTab('general')"><spring:message code="restaurant.detail.general" /></a>
+                </li>
+                <li class="tab" ng-class="{selected: getSelectedTab() == 'gallery'}">
+                    <a href="" ng-click="selectTab('gallery')"><spring:message code="restaurant.detail.gallery" /></a>
+                </li>
+                <li class="tab" ng-class="{selected: getSelectedTab() == 'menu'}">
+                    <a href="" ng-click="selectTab('menu')"><spring:message code="restaurant.detail.menu" /></a>
+                </li>
+                <li class="tab last" ng-class="{selected: getSelectedTab() == 'opinions'}">
+                    <a href="" ng-click="selectTab('opinions')"><spring:message code="restaurant.detail.opinions" /></a>
+                </li>
+            </ul>
+        </div>
 
-        <section class="verticalTab">
-
-            <input type="radio" id="general" name="restaurantSections" checked>
-            <label for="general" class="firstVerticalLabel"><spring:message code="restaurant.detail.general" /></label>
-
-            <div class="tabContent general">
-                <section class="pictureSection">
-                    <img class="mainPicture" src="<c:url value="/photo/${restaurant.id}/content" />" alt="${restaurant.name}">
-                </section>
-                <section class="dataSection">
-                    <header class="headerRestaurant">
-                        <p class="titleRestaurantDetail">${restaurant.name}</p>
-                    </header>
-                    <p class="description">${restaurant.description}</p>
-                    <c:forEach items="${restaurant.categories}" var="category">
-                        <img src="/static/images/icons/${category}.png" alt="${category}" title="${category}">
-                    </c:forEach>
-                    <p><span class="underline"><spring:message code="restaurant.detail.general.zone" /></span><span>: ${restaurant.zone}</span></p>
-                    <p><span class="underline"><spring:message code="restaurant.detail.general.address" /></span><span>: ${restaurant.address}</span></p>
-                    <p><span class="underline"><spring:message code="restaurant.detail.general.telephone" /></span><span>: ${restaurant.telephone}</span></p>
-                </section>
+        <div class="tabContent" ng-switch="getSelectedTab()">
+            <div class="general" ng-switch-when="general">
+                <jsp:include page="./sections/general.jsp">
+                    <jsp:param name="restaurant" value="${restaurant}" />
+                </jsp:include>
             </div>
+            <div ng-switch-when="gallery">Gallery</div>
+            <div ng-switch-when="menu">Menu</div>
+            <div ng-switch-when="opinions">Opinions</div>
+        </div>
 
-        </section>
-
-        <section class="verticalTab">
-
-            <input type="radio" id="gallery" name="restaurantSections">
-            <label for="gallery"><spring:message code="restaurant.detail.gallery" /></label>
-
-            <div class="tabContent gallery">
-            </div>
-
-        </section>
-
-        <section class="verticalTab">
-
-            <input type="radio" id="menu" name="restaurantSections">
-            <label for="menu"><spring:message code="restaurant.detail.menu" /></label>
-
-            <div class="tabContent menu">
-            </div>
-
-        </section>
-
-        <section class="verticalTab">
-
-            <input type="radio" id="opinions" name="restaurantSections">
-            <label for="opinions" class="lastVerticalLabel"><spring:message code="restaurant.detail.opinions" /></label>
-
-            <div class="tabContent opinions">
-            </div>
-
-        </section>
     </div>
+
+    <script src="/static/js/ui/tabsApp.js"></script>
 
 
 
